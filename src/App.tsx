@@ -1,10 +1,17 @@
 import './App.css'
+import { NavBar } from './components/NavBar'
+import { Banner } from './components/Banner'
+import { About } from './components/About'
+import { Footer } from './components/Footer'
 
 function App() {
 
   return (
     <>
-      <h1>Oi, Lenita Brasil.</h1>
+      <NavBar />
+      <Banner />
+      <About />
+      <Footer />
     </>
   )
 }

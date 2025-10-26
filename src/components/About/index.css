@@ -1,0 +1,18 @@
+.about {
+  display: flex;
+  justify-content: space-around;
+}
+
+.about-image {
+  display: flex;
+  /* width: 100%; */
+}
+
+.about-text {
+  display: flex;
+  flex-direction: column;
+  /* width: 100%; */
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}

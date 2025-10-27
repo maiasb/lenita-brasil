@@ -1,16 +1,40 @@
 .about {
   display: flex;
-  justify-content: space-around;
-}
+  width: 100%;
+  background-image: url('../../assets/avatar.png');
+  background-size: contain;
+  background-repeat: no-repeat;
 
-.about-image {
-  display: flex;
-}
-
-.about-text {
   display: flex;
   flex-direction: column;
-  text-align: center;
   align-items: center;
-  justify-content: center;
+}
+
+.sobre-content {
+  text-align: start;
+  margin-left: 500px;
+}
+
+.sobre-content > h1 {
+  color: #8C5838;
+  font-size: 100px;
+}
+
+.sobre-content > label {
+  font-size: 20px;
+  color: #424033;
+}
+
+@media screen and (max-width: 1100px){
+  .sobre-content {
+    text-align: start;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+}
+
+@media screen and (min-width: 1100px){
+  .sobre-content {
+    width: 700px;
+  }
 }

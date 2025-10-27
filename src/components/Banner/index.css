@@ -29,17 +29,6 @@
   }
 }
 
-@media screen and (max-width: 1100px){
-  .banner {
-    background-size: cover;
-    background-position: right;
-  }
-
-  .banner-content {
-    margin-left: 0px;
-  }
-}
-
 .divText {
   display: flex;
   justify-content: end;

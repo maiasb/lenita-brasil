@@ -1,8 +1,30 @@
 .banner {
   display: flex;
+  flex-direction: column;
+  width: 100%;
   height: 100vh;
   background-image: url('../../assets/bannersite.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  justify-content: center;
+  align-items: start;
+}
+
+.banner-content {
+  margin-left: 200px;
+  font-size: 80px;
+  color: #F9E4CA;
+  max-width: 600px;
+}
+
+.divText {
+  display: flex;
+  justify-content: end;
+  text-align: end;
+}
+
+.divButton {
+  display: flex;
+  justify-content: end;
 }

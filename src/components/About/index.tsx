@@ -3,7 +3,7 @@ import avatar from '../../assets/avatar.png'
 
 function About() {
   return (
-    <div className='about'>
+    <div id='sobre' className='about'>
       <div className='about-image'>
         <img src={avatar} width={650}/>
       </div>

@@ -1,10 +1,17 @@
+import { useNavigate } from 'react-router';
 import './index.css'
 
 function NavBar() {
+  const navigate = useNavigate()
+
+  function handleNavigate(path: string) {
+    navigate(path)
+  }
+
   return (
     <div className="NavBar">
       <div className='sectionBar'>
-        <h1>Lenita Brasil</h1>
+        <button onClick={() => handleNavigate('/clinica')}>A clínica</button>
       </div>
 
       <div className='sectionBar'>

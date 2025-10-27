@@ -1,0 +1,24 @@
+input {
+  border: 2px solid;
+  border-color: #F9E4CA;
+  border-radius:15px;
+  color: #F9E4CA;
+  background-color: transparent;
+  padding: 5px 5px 5px 15px;
+  font-weight: bold;
+}
+
+input::placeholder {
+  color: #F9E4CA;
+  font-style: italic;
+  font-weight: normal;
+}
+
+/* input:focus {
+  border-bottom-color: #2C391C;
+} */
+
+.search-logo {
+  margin-left: -35px;
+  margin-bottom: -8px;
+}

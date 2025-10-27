@@ -1,7 +1,14 @@
+import { useState } from 'react'
+import { Input } from '../Input'
 import logo from '../../assets/logo-1.png'
+import instagram from '../../assets/instagram.svg'
+import whatsapp from '../../assets/whatsapp.svg'
+import youtube from '../../assets/youtube.svg'
+
 import './index.css'
 
 function NavBar() {
+  const [search, setSearch] = useState('')
 
   return (
     <div className="NavBar">
@@ -29,10 +36,14 @@ function NavBar() {
         </div>
       </div>
 
-      <div className='sectionBar'>
-        <div className='social'></div>
+      <div className='sectionBar align'>
+        <div className='social'>
+          <img src={instagram} alt='instagram' width={30} />
+          <img src={whatsapp} alt='whatsapp' width={30} />
+          <img src={youtube} alt='youtube' width={38} />
+        </div>
         <div className='search'>
-          <h1>Search</h1>
+          <Input value={search} placeholder='Pesquisar' onChange={(e) => setSearch(e.target.value)}/>
         </div>
       </div>
     </div>

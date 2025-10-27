@@ -15,10 +15,24 @@ a {
 
 .sectionBar {
   width: 100%;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.align {
+  display: flex;
+  gap: 20px;
 }
 
 .links {
   display: flex;
   align-items: center;
   gap: 40px;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

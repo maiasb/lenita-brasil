@@ -1,34 +1,42 @@
 .about {
   display: flex;
-  width: 100%;
-  background-image: url('../../assets/avatar.png');
   background-size: contain;
   background-repeat: no-repeat;
 
-  flex-direction: column;
+  background-color: #F9E4CA;
+  justify-content: space-around;
   align-items: center;
+  padding: 50px 10px;
 }
 
 .sobre-content {
   text-align: start;
-  margin-left: 500px;
+  font-optical-sizing: auto;
+  font-style: normal;
+  gap: 10px;
 }
 
 .sobre-content > h1 {
+  font-style: normal;
   color: #8C5838;
   font-size: 100px;
 }
 
-.sobre-content > label {
+.sobre-content > p {
   font-size: 20px;
   color: #424033;
 }
 
 @media screen and (max-width: 1100px){
   .sobre-content {
+    max-width: 700px;
     text-align: start;
     margin-left: 50px;
     margin-right: 50px;
+  }
+
+  .about {
+    flex-direction: column;
   }
 }
 

@@ -11,9 +11,9 @@ function Banner() {
     <div id='banner' className="banner">
       <div className='banner-content'>
         <div className='divText'>
-          <label>Resultados que
+          <p>Resultados que
           você vê, cuidado
-          que você sente.</label>
+          que você sente.</p>
         </div>
 
         <div className='divButton'>

@@ -1,18 +1,17 @@
-import { BrowserRouter, Route, Routes } from 'react-router'
-import { Home } from './pages/Home'
-import { Clinic } from './pages/Clinic'
 import './App.css'
+import { NavBar } from './components/NavBar'
+import { Banner } from './components/Banner'
+import { About } from './components/About'
+import { Footer } from './components/Footer'
 
 function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/clinica" element={<Clinic />} />
-        </Routes>
-      </BrowserRouter>
+      <NavBar />
+      <Banner />
+      <About />
+      <Footer />
     </>
   )
 }

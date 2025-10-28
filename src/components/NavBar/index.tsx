@@ -4,6 +4,7 @@ import logo from '../../assets/logo-1.png'
 import instagram from '../../assets/instagram-icon.svg'
 import whatsapp from '../../assets/whatsapp-icon.svg'
 import youtube from '../../assets/youtube-icon.svg'
+import { useMediaQuery } from 'react-responsive';
 
 import './index.css'
 
@@ -13,6 +14,7 @@ type NavBarProps = {
 
 function NavBar({ isMobile }: NavBarProps) {
   const [search, setSearch] = useState('')
+  const isShowSearchBar = useMediaQuery({ query: `(min-width: 800px)` });
 
   return (
     <div className="NavBar">
@@ -22,29 +24,27 @@ function NavBar({ isMobile }: NavBarProps) {
         </a>
       </div>
 
-      <div className='sectionBar links'>
-        {
-          isMobile && (
-            <>
-              <div>
-                <a href='#sobre'>Quem é Lenita Brasil</a>
-              </div>
+      {
+        isMobile && (
+          <div className='sectionBar links'>
+            <div>
+              <a href='#sobre'>Quem é Lenita Brasil</a>
+            </div>
 
-              <div>
-                <a href='#clinica'>A Clínica</a>
-              </div>
+            <div>
+              <a href='#clinica'>A Clínica</a>
+            </div>
 
-              <div>
-                <a href='#laboratorios'>Nossos Laboratórios</a>
-              </div>
+            <div>
+              <a href='#laboratorios'>Nossos Laboratórios</a>
+            </div>
 
-              <div>
-                <a href='#exames'>Exames</a>
-              </div>
-            </>
-          )
-        }
-      </div>
+            <div>
+              <a href='#exames'>Exames</a>
+            </div>
+          </div>
+        )
+      }
 
       <div className='sectionBar align'>
         <div className='social'>
@@ -52,9 +52,13 @@ function NavBar({ isMobile }: NavBarProps) {
           <img src={whatsapp} alt='whatsapp' width={30} />
           <img src={youtube} alt='youtube' width={38} />
         </div>
-        <div className='search'>
-          <Input value={search} placeholder='Pesquisar' onChange={(e) => setSearch(e.target.value)}/>
-        </div>
+        {
+          isShowSearchBar && (
+            <div className='search'>
+              <Input value={search} placeholder='Pesquisar' onChange={(e) => setSearch(e.target.value)}/>
+            </div>
+          )
+        }
       </div>
     </div>
   )

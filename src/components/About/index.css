@@ -12,7 +12,6 @@
   text-align: start;
   font-optical-sizing: auto;
   font-style: normal;
-  padding-bottom: 30px;
   gap: 10px;
 }
 
@@ -20,11 +19,35 @@
   font-style: normal;
   color: #8C5838;
   font-size: 100px;
+  padding: 0px 20px;
+}
+
+@media screen and (max-width: 1300px){
+  .sobre-text {
+    margin-left: 30px;
+  }
+
+  .sobre-text > h1 {
+    font-style: normal;
+    color: #8C5838;
+    font-size: 80px;
+  }
+}
+
+@media screen and (max-width: 715px){
+  .sobre-text > h1 {
+    font-size: 60px;
+  }
+
+  .avatar {
+    width: 400px;
+  }
 }
 
 .sobre-text > p {
   font-size: 20px;
   color: #424033;
+  padding: 0px 20px;
 }
 
 .sobre-image {
@@ -36,8 +59,14 @@
   .sobre-text {
     max-width: 700px;
     text-align: start;
+    margin-top: 50px;
+    margin-bottom: 50px;
     margin-left: 50px;
     margin-right: 50px;
+  }
+
+  .sobre-text > p {
+    margin-top: 20px;
   }
 
   .sobre {
@@ -47,7 +76,7 @@
 
 @media screen and (min-width: 1100px){
   .sobre-text {
-    width: 700px;
+    max-height: 470px;
   }
 }
 
@@ -59,4 +88,9 @@
   mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
   mask-repeat: no-repeat;
   mask-size: cover;
+}
+
+.avatar {
+  width: 550px;
+  box-shadow: 10px 5px 5px #8C5838;
 }

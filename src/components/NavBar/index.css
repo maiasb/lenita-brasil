@@ -1,6 +1,6 @@
 .NavBar {
   width: 100%;
-  padding: 20px 0px;
+  padding: 20px 0px 20px 0px;
   display: flex;
   position: fixed;
   align-items: center;
@@ -16,8 +16,6 @@ a {
 .sectionBar {
   width: 100%;
   justify-content: center;
-  text-align: center;
-  align-items: center;
 }
 
 .align {
@@ -35,4 +33,11 @@ a {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+@media screen and (max-width: 800px){
+  .sectionBar {
+    justify-content: end;
+    padding-right: 30px;
+  }
 }

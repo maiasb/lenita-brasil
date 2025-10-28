@@ -1,16 +1,23 @@
-.div-footer {
-  display: flex;
-  flex-direction: column;
-  text-align: start;
-  gap: 20px;
-}
-
 .footer {
   display: flex;
   gap: 100px;
   background: #424033;
   padding: 100px 200px;
   color: #F9E4CA;
+}
+
+@media screen and (max-width: 1100px){
+  .footer {
+    flex-direction: column;
+    padding: 80px 50px;
+  }
+}
+
+.div-footer {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  gap: 20px;
 }
 
 .div-title {

@@ -5,7 +5,7 @@ function About() {
   return (
     <div id='sobre' className='sobre'>
       <div className='sobre-image'>
-        <img src={avatar} alt='avatar' width={550} />
+        <img className='avatar' src={avatar} alt='avatar' width={550} />
       </div>
 
       <div className='sobre-text'>

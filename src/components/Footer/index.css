@@ -1,0 +1,24 @@
+.div-footer {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  gap: 20px;
+}
+
+.footer {
+  display: flex;
+  gap: 100px;
+  background: #424033;
+  padding: 100px 200px;
+  color: #F9E4CA;
+}
+
+.div-title {
+  display: flex;
+  justify-content: start;
+  gap: 20px;
+}
+
+.tube {
+  margin-top: -12px;
+}

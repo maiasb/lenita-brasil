@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Input } from '../Input'
 import logo from '../../assets/logo-1.png'
-import instagram from '../../assets/instagram.svg'
-import whatsapp from '../../assets/whatsapp.svg'
-import youtube from '../../assets/youtube.svg'
+import instagram from '../../assets/instagram-icon.svg'
+import whatsapp from '../../assets/whatsapp-icon.svg'
+import youtube from '../../assets/youtube-icon.svg'
 
 import './index.css'
 

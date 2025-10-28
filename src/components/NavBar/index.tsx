@@ -7,7 +7,11 @@ import youtube from '../../assets/youtube.svg'
 
 import './index.css'
 
-function NavBar() {
+type NavBarProps = {
+  isMobile: boolean
+}
+
+function NavBar({ isMobile }: NavBarProps) {
   const [search, setSearch] = useState('')
 
   return (
@@ -19,21 +23,27 @@ function NavBar() {
       </div>
 
       <div className='sectionBar links'>
-        <div>
-          <a href='#sobre'>Quem é Lenita Brasil</a>
-        </div>
+        {
+          isMobile && (
+            <>
+              <div>
+                <a href='#sobre'>Quem é Lenita Brasil</a>
+              </div>
 
-        <div>
-          <a href='#clinica'>A Clínica</a>
-        </div>
+              <div>
+                <a href='#clinica'>A Clínica</a>
+              </div>
 
-        <div>
-          <a href='#laboratorios'>Nossos Laboratórios</a>
-        </div>
+              <div>
+                <a href='#laboratorios'>Nossos Laboratórios</a>
+              </div>
 
-        <div>
-          <a href='#exames'>Exames</a>
-        </div>
+              <div>
+                <a href='#exames'>Exames</a>
+              </div>
+            </>
+          )
+        }
       </div>
 
       <div className='sectionBar align'>

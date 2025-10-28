@@ -9,8 +9,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "aws-deploy": "aws s3 sync dist/ s3://lenitabrasil.com.br",
-    "gh-deploy": "gh-pages -d dist"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "aws-deploy": "aws s3 sync dist/ s3://lenitabrasil.com.br"
   },
   "dependencies": {
     "react": "^19.1.1",

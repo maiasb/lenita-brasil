@@ -70,7 +70,7 @@
   }
 
   .sobre {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 }
 
@@ -92,10 +92,4 @@
 
 .avatar {
   width: 550px;
-}
-
-@media screen and (max-width: 1100px){
-  .avatar {
-    box-shadow: 10px 5px 5px #8C5838;
-  }
 }

@@ -1,0 +1,72 @@
+/* ==========================================================================
+   DESIGN TOKENS - identidade oficial (MANUAL DE MARCA, ago/2025).
+   Unico lugar para cores, fontes, espacamentos, raios e sombras.
+   Paleta oficial (manual p.14):
+     Marrom      #8C5838   (RGB 140,88,56)
+     Bege escuro #F3BB90   (RGB 243,187,144)
+     Bege claro  #F9E4CA   (RGB 249,228,202)
+     Verde oliva #424033   (RGB 66,64,51)
+   Tons de apoio (tints) sao DERIVADOS por mistura da paleta oficial com
+   branco/oliva, nunca cores novas. Branco e preto existem como versoes de
+   logo (manual p.15), usados so para texto/superficies neutras.
+   Tipografia oficial: Runalto (titulos/logotipo) e Nata Sans (apoio).
+   Runalto e comercial (nao esta no Google Fonts) -> substituta provisoria:
+   Cormorant Garamond. Nata Sans e Google Font oficial.
+   ========================================================================== */
+:root {
+  /* Paleta oficial */
+  --color-brown: #8c5838;
+  --color-peach: #f3bb90;
+  --color-beige: #f9e4ca;
+  --color-olive: #424033;
+  --color-white: #fff;
+
+  /* Papeis semanticos */
+  --color-bg: color-mix(in srgb, var(--color-beige) 38%, var(--color-white));   /* fundo claro da pagina */
+  --color-surface: var(--color-white);                                          /* caixas/cartoes        */
+  --color-surface-warm: color-mix(in srgb, var(--color-beige) 70%, var(--color-white));
+  --color-surface-rose: color-mix(in srgb, var(--color-peach) 20%, var(--color-beige)); /* secao "Dra." */
+  --color-ink: var(--color-olive);                                              /* texto principal       */
+  --color-ink-soft: color-mix(in srgb, var(--color-olive) 82%, var(--color-white)); /* texto secundario (AA) */
+  --color-line: color-mix(in srgb, var(--color-brown) 28%, var(--color-beige));
+  --color-brand: var(--color-brown);                                            /* titulos, botoes       */
+  --color-brand-strong: color-mix(in srgb, var(--color-brown) 80%, var(--color-olive));
+  --color-on-brand: var(--color-beige);                                         /* texto sobre marrom    */
+  --color-dark: var(--color-olive);                                             /* secoes escuras        */
+  --color-on-dark: var(--color-beige);
+  --color-accent: var(--color-peach);                                           /* detalhes sobre escuro */
+  --color-focus: var(--color-olive);
+  --color-focus-on-dark: var(--color-peach);
+
+  /* Tipografia (URL em content.mjs > site.fontsUrl) */
+  --font-display: "Cormorant Garamond", "Runalto", Georgia, serif;  /* Runalto (oficial) > substituta */
+  --font-body: "Nata Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fs-xs: .8125rem;
+  --fs-sm: .9375rem;
+  --fs-md: 1.0625rem;
+  --fs-lg: clamp(1.25rem, 1.1rem + .6vw, 1.6rem);
+  --fs-xl: clamp(2rem, 1.5rem + 2.2vw, 3.1rem);
+  --fs-hero: clamp(2.25rem, 1.6rem + 3.6vw, 4.25rem);
+  --lh-tight: 1.12;
+  --lh-body: 1.7;
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-strong: 600;
+
+  /* Espacamento */
+  --space-1: .25rem; --space-2: .5rem; --space-3: .75rem; --space-4: 1rem;
+  --space-5: 1.5rem; --space-6: 2rem; --space-7: 3rem; --space-8: 4.5rem;
+  --space-9: clamp(3.5rem, 2.5rem + 5vw, 6.5rem);
+  --gutter: clamp(1.25rem, 5vw, 2rem);
+  --container: 74rem;
+  --header-h: 4.5rem;
+
+  /* Forma e sombra (caixas arredondadas, como no layout aprovado) */
+  --radius-sm: .5rem; --radius-md: 1rem; --radius-lg: 1.75rem; --radius-pill: 999px;
+  --shadow-sm: 0 1px 2px rgb(66 64 51 / .06), 0 2px 8px rgb(66 64 51 / .06);
+  --shadow-md: 0 14px 34px rgb(66 64 51 / .14);
+
+  /* Movimento */
+  --ease: cubic-bezier(.22, .8, .24, 1);
+  --dur: .7s;
+}

@@ -26,7 +26,7 @@
   nav.addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false); });
   addEventListener("keydown", (e) => { if (e.key === "Escape" && nav.classList.contains("is-open")) { setMenu(false); btn.focus(); } });
 
-  // Formulario -> abre WhatsApp com a mensagem montada (sem backend, nada e armazenado)
+  // Formulario -> abre WhatsApp com a mensagem montada (sem backend; o site nao guarda os dados)
   const form = document.getElementById("form");
   const status = document.getElementById("form-status");
   form.addEventListener("submit", (e) => {
@@ -40,7 +40,6 @@
     }
     nome.removeAttribute("aria-invalid");
     const lines = ["Olá! Vim pelo site da Dra. Lenita Brasil.", `Nome: ${nome.value.trim()}`];
-    if (form.email.value.trim()) lines.push(`E-mail: ${form.email.value.trim()}`);
     if (form.tel.value.trim()) lines.push(`Telefone: ${form.tel.value.trim()}`);
     if (form.msg.value.trim()) lines.push(`Mensagem: ${form.msg.value.trim()}`);
     status.textContent = "Abrindo o WhatsApp...";

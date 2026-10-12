@@ -4,9 +4,11 @@ import { writeFileSync, readFileSync } from "node:fs";
 import c from "./src/content.mjs";
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-const waLink = (msg = c.whatsapp.message) => `https://wa.me/${c.whatsapp.number}?text=${encodeURIComponent(msg)}`;
+const waLink = (msg = c.whatsapp.consulta.message) => `https://wa.me/${c.whatsapp.number}?text=${encodeURIComponent(msg)}`;
 const mapLink = (q) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
 const hasUrl = !c.site.url.includes("[");
+// Especialidade so pode ser anunciada com RQE informado.
+const specialty = c.doctor.rqe ? "Dermatologia" : null;
 
 // Icones oficiais (assets/icons) inlinados com currentColor.
 const svgIcon = (name, cls = "icon") => {
@@ -29,8 +31,13 @@ const cta = (label, { msg, cls = "" } = {}) =>
 const section = (id, cls, inner, labelledby) =>
   `<section id="${id}" class="section ${cls}"${labelledby ? ` aria-labelledby="${labelledby}"` : ""}><div class="container">${inner}</div></section>`;
 
-const logoH = `<img src="assets/logo/logo-horizontal.svg" alt="Lenita Brasil Dermatologia" width="1732" height="319">`;
-const logoV = `<img src="assets/logo/logo-vertical.svg" alt="Lenita Brasil Dermatologia" width="705" height="955">`;
+// Logos SEM epiteto (nao ha RQE). Reativar a versao com epiteto so quando doctor.rqe existir.
+const logoH = `<img src="assets/logo/logo-horizontal.svg" alt="Lenita Brasil" width="1732" height="319">`;
+const logoV = `<img src="assets/logo/logo-vertical.svg" alt="Lenita Brasil" width="705" height="850">`;
+
+// Dois caminhos: consulta e exame, cada um com mensagem propria.
+const ctaPair = ({ cls = "", wrap = "ctas reveal" } = {}) =>
+  `<div class="${wrap}">${cta(c.whatsapp.consulta.label, { msg: c.whatsapp.consulta.message, cls })}${cta(c.whatsapp.exame.label, { msg: c.whatsapp.exame.message, cls: `${cls} btn--alt` })}</div>`;
 
 const socials = `<ul class="social">
   <li><a href="${c.doctor.instagram}" target="_blank" rel="noopener" aria-label="Instagram ${c.doctor.instagramHandle}">${svgIcon("insta")}</a></li>
@@ -43,17 +50,15 @@ const jsonLd = {
     {
       "@type": "Physician",
       name: c.doctor.name,
-      medicalSpecialty: "Dermatology",
+      ...(specialty ? { medicalSpecialty: "Dermatology" } : {}),
       identifier: c.doctor.crm,
       telephone: "+" + c.whatsapp.number,
       sameAs: [c.doctor.instagram],
     },
     ...c.labs.units.map((u, i) => ({
-      "@type": "MedicalClinic",
-      name: `Clínica Lenita Brasil - ${u.name}`,
-      description: c.site.description,
+      "@type": "MedicalBusiness",
+      name: `Lenita Brasil - ${u.name}`,
       telephone: "+" + c.whatsapp.number,
-      medicalSpecialty: "Dermatology",
       address: { "@type": "PostalAddress", streetAddress: u.address.replace(" - ", ", "), addressLocality: i === 0 ? "Belém" : "Castanhal", addressRegion: "PA", addressCountry: "BR" },
       ...(hasUrl ? { url: c.site.url } : {}),
     })),
@@ -72,13 +77,15 @@ const procedureCard = (p) => `<li class="proc reveal">
   <h3>${esc(p.title)}</h3>
   <p class="proc__short">${esc(p.short)}</p>
   <details class="proc__more"><summary>Saiba mais</summary>
-    <div>${p.text.map((t) => `<p>${esc(t)}</p>`).join("")}${cta(c.procedures.cta, { msg: `Olá! Vim pelo site e gostaria de agendar uma avaliação sobre ${p.title}.`, cls: "btn--sm" })}</div>
+    <div>${p.text.map((t) => `<p>${esc(t)}</p>`).join("")}${cta(c.procedures.cta, { msg: `Olá! Vim pelo site e gostaria de agendar uma consulta para avaliar ${p.title}.`, cls: "btn--sm" })}</div>
   </details>
 </li>`;
 
+const aboutFacts = [`Médica · ${c.doctor.crm}${c.doctor.rqe ? ` · ${c.doctor.rqe}` : ""}`, "Clínica Lenita Brasil e Laboratórios Lenita Brasil"];
+
 const examGroup = (g) => `<details class="exam reveal"><summary><span>${esc(g.title)}</span></summary>
   <ul>${g.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul>
-  ${cta(c.exams.cta, { msg: `Olá! Vim pelo site e gostaria de agendar exames (${g.title.toLowerCase()}).`, cls: "btn--sm btn--light" })}
+  ${cta(c.exams.cta, { msg: `${c.whatsapp.exame.message} Tenho interesse em exames ${g.title.toLowerCase()}.`, cls: "btn--sm btn--light" })}
 </details>`;
 
 const unitCard = (u) => `<article class="unit reveal">
@@ -87,7 +94,6 @@ const unitCard = (u) => `<article class="unit reveal">
   <a class="pill" href="${mapLink(u.mapQuery)}" target="_blank" rel="noopener">${svgIcon("loc")}<span>${esc(c.labs.mapLabel)}<span class="sr"> - ${esc(u.name)} (abre em nova aba)</span></span></a>
 </article>`;
 
-const rqe = c.doctor.rqe ? ` · ${c.doctor.rqe}` : "";
 
 const html = `<!doctype html>
 <html lang="${c.site.lang}">
@@ -97,16 +103,17 @@ const html = `<!doctype html>
 <title>${esc(c.site.title)}</title>
 <meta name="description" content="${esc(c.site.description)}">
 <meta name="theme-color" content="${c.site.themeColor}">
-${hasUrl ? `<link rel="canonical" href="${esc(c.site.url)}">\n<meta property="og:url" content="${esc(c.site.url)}">\n<meta property="og:image" content="${esc(c.site.url + c.site.ogImage)}">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta property="og:image:alt" content="${esc(c.site.title)}">\n<meta property="og:site_name" content="Lenita Brasil">\n<meta name="twitter:image" content="${esc(c.site.url + c.site.ogImage)}">` : "<!-- canonical/og:url/og:image absoluto: definir site.url em content.mjs -->"}
+${hasUrl ? `${c.site.canonical ? `<link rel="canonical" href="${esc(c.site.url)}">\n<meta property="og:url" content="${esc(c.site.url)}">\n` : "<!-- canonical/og:url desativados ate haver dominio proprio (site.canonical) -->\n"}<meta property="og:image" content="${esc(c.site.url + c.site.ogImage)}">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta property="og:image:alt" content="${esc(c.site.title)}">\n<meta property="og:site_name" content="Lenita Brasil">\n<meta name="twitter:image" content="${esc(c.site.url + c.site.ogImage)}">` : "<!-- canonical/og:url/og:image absoluto: definir site.url em content.mjs -->"}
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:title" content="${esc(c.site.title)}">
 <meta property="og:description" content="${esc(c.site.description)}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(c.site.title)}">
+<meta name="twitter:description" content="${esc(c.site.description)}">
 <link rel="icon" href="assets/logo/simbolo.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="${c.site.fontsUrl}">
+<link rel="preload" href="assets/fonts/nata-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="src/fonts.css">
 <link rel="stylesheet" href="src/tokens.css">
 <link rel="stylesheet" href="src/styles.css">
 <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
@@ -129,7 +136,8 @@ ${hasUrl ? `<link rel="canonical" href="${esc(c.site.url)}">\n<meta property="og
     <div class="hero__copy">
       <h1 class="reveal">${esc(c.hero.title)}</h1>
       <p class="hero__text reveal">${esc(c.hero.text)}</p>
-      <div class="reveal">${cta(c.hero.cta, { cls: "btn--lg" })}</div>
+      ${ctaPair({ cls: "btn--lg" })}
+      <p class="hero__micro reveal">${esc(c.hero.micro)}</p>
       <ul class="badges reveal">${c.hero.badges.map((b) => `<li>${esc(b)}</li>`).join("")}</ul>
     </div>
   </div>
@@ -145,7 +153,7 @@ ${hasUrl ? `<link rel="canonical" href="${esc(c.site.url)}">\n<meta property="og
     <div class="about__copy">
       <h2 id="t-dra" class="reveal">${esc(c.about.title)}</h2>
       ${c.about.paragraphs.map((p) => `<p class="reveal">${esc(p)}</p>`).join("")}
-      <ul class="facts reveal">${c.about.facts.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
+      <ul class="facts reveal">${aboutFacts.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
       <div class="reveal">${cta(c.about.cta, { cls: "btn--dark" })}</div>
     </div>
   </div>
@@ -189,7 +197,7 @@ ${hasUrl ? `<link rel="canonical" href="${esc(c.site.url)}">\n<meta property="og
   <div class="container">
     <header class="section__head center reveal"><h2 id="t-steps">${esc(c.steps.title)}</h2></header>
     <ol class="steps">${c.steps.items.map((s, i) => `<li class="step reveal"><span class="step__n" aria-hidden="true">${i + 1}</span><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></li>`).join("")}</ol>
-    <div class="center reveal">${cta(c.steps.cta)}</div>
+    <div class="center reveal">${ctaPair()}</div>
   </div>
 </section>
 
@@ -206,16 +214,16 @@ ${hasUrl ? `<link rel="canonical" href="${esc(c.site.url)}">\n<meta property="og
     <div class="contact__copy">
       <h2 id="t-contato" class="reveal">${esc(c.contact.title)}</h2>
       <p class="reveal">${esc(c.contact.text)}</p>
+      ${ctaPair({ cls: "btn--dark" })}
       <p class="reveal">${esc(c.contact.orWhats)}</p>
       <p class="reveal"><a class="phone" href="${waLink()}" target="_blank" rel="noopener" data-cta>${svgIcon("whats", "phone__icon")}<span>${esc(c.whatsapp.display)}</span></a></p>
     </div>
     <form class="form reveal" id="form" action="${waLink()}" method="get" data-wa="${c.whatsapp.number}" novalidate>
       <div class="field"><label for="f-nome">Seu nome</label><input id="f-nome" name="nome" type="text" autocomplete="name" required></div>
-      <div class="field"><label for="f-email">Seu e-mail</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
       <div class="field"><label for="f-tel">Seu telefone</label><input id="f-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel"></div>
-      <div class="field"><label for="f-msg">Mensagem</label><textarea id="f-msg" name="msg" rows="3"></textarea></div>
+      <div class="field"><label for="f-msg">Mensagem</label><textarea id="f-msg" name="msg" rows="3" aria-describedby="f-msg-hint"></textarea><p class="field__hint" id="f-msg-hint">${esc(c.contact.msgHint)}</p></div>
       <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
-      <p class="note">${esc(c.contact.privacy)}</p>
+      <p class="note">${esc(c.contact.privacy)} <a href="privacidade.html">${esc(c.contact.privacyLink)}</a>.</p>
       <button class="btn btn--dark" type="submit"><span>${esc(c.contact.submit)}</span></button>
     </form>
   </div>
@@ -231,15 +239,43 @@ ${hasUrl ? `<link rel="canonical" href="${esc(c.site.url)}">\n<meta property="og
     <div class="footer__units">${c.labs.units.map((u) => `<p><span class="chip chip--outline">${esc(u.name)}</span><br>${esc(u.address)}</p>`).join("")}
       <p class="footer__ig"><a href="${c.doctor.instagram}" target="_blank" rel="noopener">${svgIcon("insta", "icon icon--sm")}${esc(c.doctor.instagramHandle)}</a><br><a href="${c.doctor.labInstagram}" target="_blank" rel="noopener">${svgIcon("insta", "icon icon--sm")}${esc(c.doctor.labInstagramHandle)}</a></p></div>
   </div>
-  <div class="container footer__legal">${c.footer.legal.map((l) => `<p>${esc(l)}</p>`).join("")}${rqe ? `<p>${esc(c.doctor.rqe)}</p>` : ""}</div>
+  <div class="container footer__legal">${c.footer.legal.map((l) => `<p>${esc(l)}</p>`).join("")}${c.doctor.rqe ? `<p>${esc(c.doctor.rqe)}</p>` : ""}<p><a href="privacidade.html">Privacidade</a></p></div>
 </footer>
 
-<a class="fab" href="${waLink()}" target="_blank" rel="noopener" aria-label="${esc(c.whatsapp.label)} pelo WhatsApp" data-cta>${svgIcon("whats", "fab__icon")}<span class="fab__t">Fale conosco</span></a>
+<a class="fab" href="${waLink()}" target="_blank" rel="noopener" aria-label="${esc(c.whatsapp.consulta.label)} pelo WhatsApp" data-cta>${svgIcon("whats", "fab__icon")}<span class="fab__t">${esc(c.whatsapp.consulta.label)}</span></a>
 <script src="src/main.js" defer></script>
 </body>
 </html>
 `;
 writeFileSync(new URL("./index.html", import.meta.url), html);
+
+// privacidade.html: pagina simples, mesma identidade visual.
+const pp = c.privacyPage;
+writeFileSync(new URL("./privacidade.html", import.meta.url), `<!doctype html>
+<html lang="${c.site.lang}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(pp.title)}</title>
+<meta name="description" content="${esc(pp.description)}">
+<meta name="theme-color" content="${c.site.themeColor}">
+<link rel="icon" href="assets/logo/simbolo.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/nata-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="src/fonts.css">
+<link rel="stylesheet" href="src/tokens.css">
+<link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+<header class="topbar is-stuck"><div class="container topbar__in"><a class="brand" href="./" aria-label="${esc(c.doctor.name)} - início">${logoH}</a></div></header>
+<main id="main" class="section prose"><div class="container">
+<h1>${esc(pp.h1)}</h1>
+${pp.sections.map((x) => `<h2>${esc(x.h)}</h2>${x.p.map((t) => `<p>${esc(t)}</p>`).join("")}`).join("\n")}
+<p><a class="pill" href="./">Voltar ao site</a></p>
+</div></main>
+<footer class="footer"><div class="container footer__legal"><p>${esc(c.footer.legal[0])}</p></div></footer>
+</body>
+</html>
+`);
 if (hasUrl) {
   writeFileSync(new URL("./robots.txt", import.meta.url), `User-agent: *\nAllow: /\n\nSitemap: ${c.site.url}sitemap.xml\n`);
   writeFileSync(new URL("./sitemap.xml", import.meta.url), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${c.site.url}</loc><lastmod>${new Date().toISOString().slice(0, 10)}</lastmod></url>\n</urlset>\n`);
@@ -248,5 +284,6 @@ if (hasUrl) {
 // Lista placeholders [entre colchetes] e pendencias para o relatorio.
 const found = new Set();
 (function walk(o) { if (typeof o === "string") { (o.match(/\[[^\]]+\]/g) || []).forEach((m) => found.add(m)); } else if (o && typeof o === "object") Object.values(o).forEach(walk); })(c);
-if (!c.doctor.rqe) found.add("[RQE nao informado: doctor.rqe]");
-console.log("index.html gerado.\nPendentes (" + found.size + "):\n- " + [...found].join("\n- "));
+if (!c.doctor.rqe) found.add("RQE nao informado (doctor.rqe): especialidade e epiteto ocultos");
+console.log("index.html e privacidade.html gerados.\nPendentes/ocultos (" + found.size + "):\n- " + [...found].join("\n- "));
+console.log("- Ocultos por falta de dado: CNPJ, responsavel tecnico, horarios, convenios, prazo de resultado, formacao/sociedades, YouTube/Facebook, CEP, dominio proprio (canonical).");

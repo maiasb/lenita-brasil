@@ -97,7 +97,7 @@ const html = `<!doctype html>
 <title>${esc(c.site.title)}</title>
 <meta name="description" content="${esc(c.site.description)}">
 <meta name="theme-color" content="${c.site.themeColor}">
-${hasUrl ? `<link rel="canonical" href="${esc(c.site.url)}">\n<meta property="og:url" content="${esc(c.site.url)}">\n<meta property="og:image" content="${esc(c.site.url + c.site.ogImage)}">` : "<!-- canonical/og:url/og:image absoluto: definir site.url em content.mjs -->"}
+${hasUrl ? `<link rel="canonical" href="${esc(c.site.url)}">\n<meta property="og:url" content="${esc(c.site.url)}">\n<meta property="og:image" content="${esc(c.site.url + c.site.ogImage)}">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta property="og:image:alt" content="${esc(c.site.title)}">\n<meta property="og:site_name" content="Lenita Brasil">\n<meta name="twitter:image" content="${esc(c.site.url + c.site.ogImage)}">` : "<!-- canonical/og:url/og:image absoluto: definir site.url em content.mjs -->"}
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:title" content="${esc(c.site.title)}">
@@ -240,6 +240,10 @@ ${hasUrl ? `<link rel="canonical" href="${esc(c.site.url)}">\n<meta property="og
 </html>
 `;
 writeFileSync(new URL("./index.html", import.meta.url), html);
+if (hasUrl) {
+  writeFileSync(new URL("./robots.txt", import.meta.url), `User-agent: *\nAllow: /\n\nSitemap: ${c.site.url}sitemap.xml\n`);
+  writeFileSync(new URL("./sitemap.xml", import.meta.url), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${c.site.url}</loc><lastmod>${new Date().toISOString().slice(0, 10)}</lastmod></url>\n</urlset>\n`);
+}
 
 // Lista placeholders [entre colchetes] e pendencias para o relatorio.
 const found = new Set();

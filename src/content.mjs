@@ -9,7 +9,7 @@
    ========================================================================== */
 export default {
   site: {
-    url: "https://[dominio-a-definir]/",
+    url: "https://maiasb.github.io/lenita-brasil/", // trocar pelo dominio proprio quando houver
     lang: "pt-BR",
     title: "Dra. Lenita Brasil | Clínica dermatológica e laboratórios em Belém e Castanhal",
     description:

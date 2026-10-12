@@ -25,8 +25,12 @@ const picture = (im, alt, { sizes, eager = false, cls = "", style = "" } = {}) =
   return `<img${cls ? ` class="${cls}"` : ""} src="assets/img/${im.base}-${big}.${ext}" srcset="${srcset}" sizes="${sizes}" width="${im.w}" height="${im.h}" alt="${esc(alt)}"${eager ? ' fetchpriority="high"' : ' loading="lazy" decoding="async"'}${style ? ` style="${style}"` : ""}>`;
 };
 
-const cta = (label, { msg, cls = "" } = {}) =>
-  `<a class="btn ${cls}" href="${waLink(msg)}" target="_blank" rel="noopener" data-cta>${svgIcon("whats", "btn__icon")}<span>${esc(label)}</span></a>`;
+const cta = (label, { msg, cls = "", aria = "" } = {}) =>
+  `<a class="btn ${cls}" href="${waLink(msg)}"${aria ? ` aria-label="${esc(aria)}"` : ""} target="_blank" rel="noopener" data-cta>${svgIcon("whats", "btn__icon")}<span>${esc(label)}</span></a>`;
+
+// Link de texto discreto para o WhatsApp (CTA secundario, sem peso de botao).
+const tlink = (label, msg) =>
+  `<a class="tlink" href="${waLink(msg)}" target="_blank" rel="noopener" data-cta>${esc(label)}<span class="sr"> (abre o WhatsApp em nova aba)</span></a>`;
 
 const section = (id, cls, inner, labelledby) =>
   `<section id="${id}" class="section ${cls}"${labelledby ? ` aria-labelledby="${labelledby}"` : ""}><div class="container">${inner}</div></section>`;
@@ -35,9 +39,9 @@ const section = (id, cls, inner, labelledby) =>
 const logoH = `<img src="assets/logo/logo-horizontal.svg" alt="Lenita Brasil" width="1732" height="319">`;
 const logoV = `<img src="assets/logo/logo-vertical.svg" alt="Lenita Brasil" width="705" height="850">`;
 
-// Dois caminhos: consulta e exame, cada um com mensagem propria.
-const ctaPair = ({ cls = "", wrap = "ctas reveal" } = {}) =>
-  `<div class="${wrap}">${cta(c.whatsapp.consulta.label, { msg: c.whatsapp.consulta.message, cls })}${cta(c.whatsapp.exame.label, { msg: c.whatsapp.exame.message, cls: `${cls} btn--alt` })}</div>`;
+// CTA generico unico: consulta. Exame so na secao Exames (botoes por grupo, link de texto) e no menu.
+const ctaMain = ({ cls = "", wrap = "ctas reveal" } = {}) =>
+  `<div class="${wrap}">${cta(c.whatsapp.consulta.label, { msg: c.whatsapp.consulta.message, cls })}</div>`;
 
 const socials = `<ul class="social">
   <li><a href="${c.doctor.instagram}" target="_blank" rel="noopener" aria-label="Instagram ${c.doctor.instagramHandle}">${svgIcon("insta")}</a></li>
@@ -77,7 +81,7 @@ const procedureCard = (p) => `<li class="proc reveal">
   <h3>${esc(p.title)}</h3>
   <p class="proc__short">${esc(p.short)}</p>
   <details class="proc__more"><summary>Saiba mais</summary>
-    <div>${p.text.map((t) => `<p>${esc(t)}</p>`).join("")}${cta(c.procedures.cta, { msg: `Olá! Vim pelo site e gostaria de agendar uma consulta para avaliar ${p.title}.`, cls: "btn--sm" })}</div>
+    <div>${p.text.map((t) => `<p>${esc(t)}</p>`).join("")}${cta(`Perguntar sobre ${p.title}`, { msg: `Olá! Vim pelo site e gostaria de agendar uma consulta para avaliar ${p.title}.`, cls: "btn--sm btn--alt", aria: `Perguntar pelo WhatsApp sobre ${p.title}` })}</div>
   </details>
 </li>`;
 
@@ -85,7 +89,7 @@ const aboutFacts = [`Médica · ${c.doctor.crm}${c.doctor.rqe ? ` · ${c.doctor.
 
 const examGroup = (g) => `<details class="exam reveal"><summary><span>${esc(g.title)}</span></summary>
   <ul>${g.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul>
-  ${cta(c.exams.cta, { msg: `${c.whatsapp.exame.message} Tenho interesse em exames ${g.title.toLowerCase()}.`, cls: "btn--sm btn--light" })}
+  ${cta(`Perguntar sobre exames ${g.title.toLowerCase()}`, { msg: `${c.whatsapp.exame.message} Tenho interesse em exames ${g.title.toLowerCase()}.`, cls: "btn--sm btn--alt-light", aria: `Perguntar pelo WhatsApp sobre exames ${g.title.toLowerCase()}` })}
 </details>`;
 
 const unitCard = (u) => `<article class="unit reveal">
@@ -136,7 +140,8 @@ ${hasUrl ? `${c.site.canonical ? `<link rel="canonical" href="${esc(c.site.url)}
     <div class="hero__copy">
       <h1 class="reveal">${esc(c.hero.title)}</h1>
       <p class="hero__text reveal">${esc(c.hero.text)}</p>
-      ${ctaPair({ cls: "btn--lg" })}
+      ${ctaMain({ cls: "btn--lg" })}
+      <p class="hero__exams reveal"><a class="tlink" href="#exames">${esc(c.hero.examsLink)}</a></p>
       <p class="hero__micro reveal">${esc(c.hero.micro)}</p>
       <ul class="badges reveal">${c.hero.badges.map((b) => `<li>${esc(b)}</li>`).join("")}</ul>
     </div>
@@ -164,9 +169,9 @@ ${hasUrl ? `${c.site.canonical ? `<link rel="canonical" href="${esc(c.site.url)}
     <div class="clinic__copy">
       <h2 id="t-clinica" class="reveal">${esc(c.clinic.title)}</h2>
       ${c.clinic.paragraphs.map((p) => `<p class="reveal">${esc(p)}</p>`).join("")}
-      <p class="reveal"><a class="pill" href="#laboratorios">${esc(c.clinic.cta)}</a></p>
     </div>
     <figure class="clinic__media reveal">${picture(c.clinic.image, c.clinic.imageAlt, { sizes: "(min-width:880px) 480px, 90vw" })}</figure>
+    <p class="clinic__cta reveal"><a class="pill" href="#laboratorios">${esc(c.clinic.cta)}</a></p>
   </div>
 </section>
 
@@ -175,7 +180,7 @@ ${hasUrl ? `${c.site.canonical ? `<link rel="canonical" href="${esc(c.site.url)}
     <header class="section__head center reveal"><h2 id="t-proc">${esc(c.procedures.title)}</h2><p>${esc(c.procedures.text)}</p><p class="lead">${esc(c.procedures.lead)}</p></header>
     <ul class="procs">${c.procedures.items.map(procedureCard).join("")}</ul>
     <p class="note center reveal">${esc(c.procedures.note)}</p>
-    <div class="center reveal">${cta(c.procedures.cta, { cls: "btn--lg" })}</div>
+    <p class="center reveal">${tlink(c.procedures.linkText, c.whatsapp.consulta.message)}</p>
   </div>
 </section>
 
@@ -190,6 +195,7 @@ ${hasUrl ? `${c.site.canonical ? `<link rel="canonical" href="${esc(c.site.url)}
   <div class="container">
     <header class="section__head center reveal"><h2 id="t-exames">${esc(c.exams.title)}</h2><p>${esc(c.exams.text)}</p></header>
     <div class="exams__grid">${c.exams.groups.map(examGroup).join("")}</div>
+    <p class="center reveal exams__more">${tlink(c.exams.linkText, c.whatsapp.exame.message)}</p>
   </div>
 </section>
 
@@ -197,7 +203,7 @@ ${hasUrl ? `${c.site.canonical ? `<link rel="canonical" href="${esc(c.site.url)}
   <div class="container">
     <header class="section__head center reveal"><h2 id="t-steps">${esc(c.steps.title)}</h2></header>
     <ol class="steps">${c.steps.items.map((s, i) => `<li class="step reveal"><span class="step__n" aria-hidden="true">${i + 1}</span><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></li>`).join("")}</ol>
-    <div class="center reveal">${ctaPair()}</div>
+    <div class="center reveal">${ctaMain()}</div>
   </div>
 </section>
 
@@ -205,6 +211,7 @@ ${hasUrl ? `${c.site.canonical ? `<link rel="canonical" href="${esc(c.site.url)}
   <div class="container">
     <header class="section__head center reveal"><h2 id="t-faq">${esc(c.faq.title)}</h2></header>
     <div class="faq">${c.faq.items.map((f) => `<details class="reveal"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}</div>
+    <div class="faq__cta center reveal"><p>${esc(c.faq.ctaText)}</p>${cta(c.faq.cta, { msg: c.whatsapp.consulta.message })}</div>
   </div>
 </section>
 
@@ -214,7 +221,7 @@ ${hasUrl ? `${c.site.canonical ? `<link rel="canonical" href="${esc(c.site.url)}
     <div class="contact__copy">
       <h2 id="t-contato" class="reveal">${esc(c.contact.title)}</h2>
       <p class="reveal">${esc(c.contact.text)}</p>
-      ${ctaPair({ cls: "btn--dark" })}
+      ${ctaMain({ cls: "btn--dark" })}
       <p class="reveal">${esc(c.contact.orWhats)}</p>
       <p class="reveal"><a class="phone" href="${waLink()}" target="_blank" rel="noopener" data-cta>${svgIcon("whats", "phone__icon")}<span>${esc(c.whatsapp.display)}</span></a></p>
     </div>

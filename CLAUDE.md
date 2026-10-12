@@ -39,9 +39,14 @@ Regra: nenhum placeholder visível. Itens ocultos/reescritos:
 - Frase "Conteúdo elaborado conforme a Resolução CFM nº 2.336/2023" removida do rodapé (autodeclaração) - decisão a confirmar com o cliente.
 
 ## Fluxos
-- Dois CTAs com mensagens próprias em `whatsapp.consulta` e `whatsapp.exame` (hero, passos, contato). FAB e demais botões de consulta usam a de consulta; botões de exames usam a de exame.
+- Um único CTA genérico por bloco (hero, "Como agendar", contato): "Agendar consulta" (`whatsapp.consulta`), preenchido. NÃO há botão genérico "Agendar exame". `whatsapp.exame.message` só é usada na seção Exames (botões por grupo e `tlink`).
+- Exames: caminho pelo item "Exames" do menu (`#exames`), pelos botões por grupo, pelo link de texto da seção, pelo FAQ e, no hero, pelo link interno discreto `hero.examsLink` (âncora `#exames`, não wa.me).
+- Regra de CTAs (hierarquia): no máximo 3 botões genéricos de consulta PREENCHIDOS entre o hero e o contato (hoje: Sobre, Como agendar, após o FAQ), mais o do hero, o do contato e o FAB. Nunca dois botões lado a lado competindo.
+- Botões por procedimento e por grupo de exame: secundários (contorno, `btn--alt` / `btn--alt-light`), rótulo distinto "Perguntar sobre X" e `aria-label` contextual ("Perguntar pelo WhatsApp sobre X"); mensagens específicas. Não repetir o mesmo rótulo; sem superlativos/promessas.
+- Telefone/ícone de WhatsApp (contato, rodapé, redes) são links, não botões. Novo CTA genérico só onde há decisão; caso contrário, `tlink`.
 - Formulário sem e-mail; aviso de não escrever dados de saúde; `privacidade.html` (gerada pelo build) descreve o funcionamento real do site.
 
 ## Técnica
+- Alinhamento de CTAs: no desktop o botão acompanha o texto do bloco (texto à esquerda → botão na mesma borda do título; bloco `.center` → centralizado; nunca `justify-self:end`). Exceções centralizadas em todos os breakpoints: o CTA "Ver endereços" da Clínica (`.clinic__cta`, linha própria centralizada abaixo de texto+imagem) e todo o rodapé (`.footer`, blocos em grid de colunas iguais com conteúdo centralizado; também em `privacidade.html`). No celular (<=600px) todo `.btn` é largura total (máx. 24rem, centralizado, alvo >= 44px) e `tlink` centralizado.
 - Animar só `transform`/`opacity`; respeitar `prefers-reduced-motion`; contraste AA; foco visível (outline com token); alvos >= 44px.
 - Formulário não tem backend: monta mensagem e abre `wa.me` (nada é armazenado).

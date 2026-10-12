@@ -34,13 +34,12 @@ export default {
   whatsapp: {
     number: "5591996040003", // 91 99604-0003 (SITE2.pdf, cards e impressos)
     display: "91 99604-0003",
-    // Dois caminhos: consulta e exame, cada um com mensagem propria.
+    // Consulta: unico CTA generico. Mensagem de exame: usada so na secao Exames.
     consulta: {
       label: "Agendar consulta",
       message: "Olá! Vim pelo site e gostaria de agendar uma consulta com a Dra. Lenita Brasil.",
     },
     exame: {
-      label: "Agendar exame",
       message: "Olá! Vim pelo site e gostaria de informações para fazer exames no laboratório.",
     },
   },
@@ -56,7 +55,8 @@ export default {
 
   hero: {
     title: "Consulta médica e exames de laboratório em Belém e Castanhal",
-    text: "Escolha entre consulta e exame. A equipe responde pelo WhatsApp e informa unidades, horários e valores.",
+    text: "Agende sua consulta. A equipe responde pelo WhatsApp e informa unidades, horários e valores.",
+    examsLink: "Procurando exames? Ver exames",
     micro: "Atendimento pelo WhatsApp 91 99604-0003 · Sem compromisso",
     image: { base: "hero", widths: [960, 1920], w: 1920, h: 791 },
     imageAlt: "Dra. Lenita Brasil, médica, sorrindo com a mão apoiada no queixo.",
@@ -121,7 +121,7 @@ export default {
   exams: {
     title: "Exames",
     text: "Veja abaixo a lista de exames convencionais disponíveis. A equipe informa no atendimento pelo WhatsApp se é preciso pedido médico, qual o preparo (como jejum) e como os resultados são entregues.",
-    cta: "Agendar exame",
+    linkText: "Em dúvida sobre qual exame? Fale com a equipe pelo WhatsApp",
     image: { base: "exames", widths: [640, 1000], w: 1000, h: 667 },
     imageAlt: "Profissional de laboratório de luvas azuis manuseando amostras. Imagem ilustrativa.",
     groups: [
@@ -143,7 +143,7 @@ export default {
     text: "Os procedimentos são realizados após avaliação médica. A indicação, o número de sessões e os cuidados dependem de cada caso.",
     lead: "Conheça os procedimentos oferecidos na clínica.",
     note: "Toda indicação parte de avaliação médica. A resposta é individual, não há garantia de resultado e podem existir riscos e efeitos adversos, explicados na consulta. Imagens ilustrativas.",
-    cta: "Agendar consulta",
+    linkText: "Prefere conversar antes de escolher? Fale com a equipe pelo WhatsApp",
     items: [
       {
         title: "Toxina botulínica",
@@ -239,7 +239,7 @@ export default {
   steps: {
     title: "Como agendar",
     items: [
-      { title: "Escolha e envie a mensagem", text: "Escolha consulta ou exame e envie a mensagem pronta pelo WhatsApp." },
+      { title: "Envie a mensagem", text: "Toque no botão e envie a mensagem pronta pelo WhatsApp." },
       { title: "A equipe responde", text: "A equipe informa unidades, horários e valores." },
       { title: "Consulta ou exame", text: "Consulta: avaliação médica antes de qualquer indicação, com riscos e alternativas explicados. Exame: informe se tem pedido médico e pergunte sobre o preparo (como jejum)." },
     ],
@@ -247,9 +247,11 @@ export default {
 
   faq: {
     title: "Dúvidas frequentes",
+    ctaText: "Não encontrou o que procurava? A equipe responde pelo WhatsApp.",
+    cta: "Agendar consulta",
     items: [
       { q: "Onde ficam as unidades?", a: "Em Belém (R. Bernal do Couto, nº 75 - Umarizal) e em Castanhal (Av. Marechal Deodoro, nº 368 - Ianetama), no Pará." },
-      { q: "Como agendo uma consulta ou exame?", a: "Pelos botões \"Agendar consulta\" e \"Agendar exame\" desta página, que abrem o WhatsApp com a mensagem pronta. É só enviar." },
+      { q: "Como agendo uma consulta ou exame?", a: "Para consulta, pelo botão \"Agendar consulta\" desta página; para exames, pelos botões da seção Exames. Ambos abrem o WhatsApp com a mensagem pronta. É só enviar." },
       { q: "Qual o valor da consulta e dos exames?", a: "Os valores são informados pela equipe no atendimento pelo WhatsApp." },
       { q: "Vocês atendem convênio?", a: "A equipe informa no atendimento pelo WhatsApp." },
       { q: "Preciso de pedido médico para fazer exames?", a: "A equipe informa no atendimento pelo WhatsApp." },
@@ -262,7 +264,7 @@ export default {
 
   contact: {
     title: "Fale com a equipe pelo WhatsApp",
-    text: "Escolha consulta ou exame para abrir o WhatsApp com a mensagem pronta, ou preencha o formulário.",
+    text: "Abra o WhatsApp com a mensagem pronta ou preencha o formulário.",
     orWhats: "Ou entre em contato pelo WhatsApp",
     submit: "Enviar",
     msgHint: "Não escreva sintomas ou dados de saúde aqui; a equipe pergunta no atendimento.",

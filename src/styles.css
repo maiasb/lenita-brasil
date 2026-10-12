@@ -69,16 +69,20 @@ a{color:var(--color-brand)}
 .hero__text{color:var(--color-ink-soft);max-width:30rem}
 .hero .btn{margin-top:var(--space-2)}
 .badges{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-5)}
-@media(max-width:759.98px){.badges{justify-content:center}}
+@media(max-width:1099.98px){.badges{justify-content:center}}
 .badges li{font-size:var(--fs-xs);padding:var(--space-1) var(--space-3);border:1px solid var(--color-brand);border-radius:var(--radius-pill);color:var(--color-brand)}
 /* mobile: a foto some suavemente no bege, sem cantos aparentes */
-@media(max-width:759.98px){.hero__bg img{object-position:80% 20%;-webkit-mask-image:linear-gradient(to bottom,#000 70%,transparent),linear-gradient(to left,transparent,#000 12%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,#000 70%,transparent),linear-gradient(to left,transparent,#000 12%);mask-composite:intersect}}
-@media(min-width:760px){
+@media(max-width:1099.98px){.hero__bg img{object-position:80% 20%;-webkit-mask-image:linear-gradient(to bottom,#000 70%,transparent),linear-gradient(to left,transparent,#000 12%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,#000 70%,transparent),linear-gradient(to left,transparent,#000 12%);mask-composite:intersect}}
+@media(min-width:1100px){
   .hero{display:grid}
   .hero__bg{position:absolute;inset:0;aspect-ratio:auto;max-height:none}
   .hero__bg img{object-position:100% 30%}
   .hero__in{display:flex;align-items:center;min-height:min(36rem,60vw);padding-block:var(--space-8)}
 }
+
+/* Ajustes do hero (apos as regras base): sem sobrepor a foto no desktop; CTA mais alto no celular */
+@media(min-width:1100px){.hero__copy{max-width:min(34rem,52vw)}.hero h1{font-size:clamp(1.9rem,1rem + 2.6vw,3rem)}}
+@media(max-width:1099.98px){.hero__bg{max-height:15rem}@media(min-width:600px){.hero__bg{aspect-ratio:auto;height:20rem;max-height:none}.hero__bg img{object-position:75% 18%}}.hero__in{padding-block:var(--space-4) var(--space-6)}.hero h1{margin-bottom:var(--space-4)}}
 
 /* Autoridade */
 .authority{background:var(--color-dark);color:var(--color-on-dark);padding-block:var(--space-6)}
@@ -245,7 +249,6 @@ h1,h2,h3,.stats strong,.phone,.footer__tag,.exam summary,.step__n{font-variant-n
   .ctas{justify-content:center}
   .hero__exams{text-align:center}
 }
-.hero__micro{margin-top:var(--space-4);font-size:var(--fs-sm);color:var(--color-ink-soft)}
 .field__hint{margin:var(--space-1) 0 0;font-size:var(--fs-xs);color:var(--color-ink-soft)}
 .form .note a{color:var(--color-brand)}
 .footer__legal a{color:inherit}

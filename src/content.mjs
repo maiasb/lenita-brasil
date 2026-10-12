@@ -57,7 +57,6 @@ export default {
     title: "Consulta médica e exames de laboratório em Belém e Castanhal",
     text: "Agende sua consulta. A equipe responde pelo WhatsApp e informa unidades, horários e valores.",
     examsLink: "Procurando exames? Ver exames",
-    micro: "Atendimento pelo WhatsApp 91 99604-0003 · Sem compromisso",
     image: { base: "hero", widths: [960, 1920], w: 1920, h: 791 },
     imageAlt: "Dra. Lenita Brasil, médica, sorrindo com a mão apoiada no queixo.",
     badges: ["Consulta médica", "Exames laboratoriais", "Belém e Castanhal", "CRM-PA 10896"],

@@ -87,7 +87,7 @@ const procedureCard = (p) => `<li class="proc reveal">
 
 const aboutFacts = [`Médica · ${c.doctor.crm}${c.doctor.rqe ? ` · ${c.doctor.rqe}` : ""}`, "Clínica Lenita Brasil e Laboratórios Lenita Brasil"];
 
-const examGroup = (g) => `<details class="exam reveal"><summary><span>${esc(g.title)}</span></summary>
+const examGroup = (g, i) => `<details class="exam reveal"${i === 0 ? " open" : ""}><summary><span>${esc(g.title)}</span></summary>
   <ul>${g.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul>
   ${cta(`Perguntar sobre exames ${g.title.toLowerCase()}`, { msg: `${c.whatsapp.exame.message} Tenho interesse em exames ${g.title.toLowerCase()}.`, cls: "btn--sm btn--alt-light", aria: `Perguntar pelo WhatsApp sobre exames ${g.title.toLowerCase()}` })}
 </details>`;
@@ -142,7 +142,6 @@ ${hasUrl ? `${c.site.canonical ? `<link rel="canonical" href="${esc(c.site.url)}
       <p class="hero__text reveal">${esc(c.hero.text)}</p>
       ${ctaMain({ cls: "btn--lg" })}
       <p class="hero__exams reveal"><a class="tlink" href="#exames">${esc(c.hero.examsLink)}</a></p>
-      <p class="hero__micro reveal">${esc(c.hero.micro)}</p>
       <ul class="badges reveal">${c.hero.badges.map((b) => `<li>${esc(b)}</li>`).join("")}</ul>
     </div>
   </div>

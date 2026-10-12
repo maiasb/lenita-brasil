@@ -69,7 +69,10 @@ a{color:var(--color-brand)}
 .hero__text{color:var(--color-ink-soft);max-width:30rem}
 .hero .btn{margin-top:var(--space-2)}
 .badges{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-5)}
+@media(max-width:759.98px){.badges{justify-content:center}.hero .btn{display:flex;width:fit-content;margin-inline:auto}}
 .badges li{font-size:var(--fs-xs);padding:var(--space-1) var(--space-3);border:1px solid var(--color-brand);border-radius:var(--radius-pill);color:var(--color-brand)}
+/* mobile: a foto some suavemente no bege, sem cantos aparentes */
+@media(max-width:759.98px){.hero__bg img{object-position:80% 20%;-webkit-mask-image:linear-gradient(to bottom,#000 70%,transparent),linear-gradient(to left,transparent,#000 12%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,#000 70%,transparent),linear-gradient(to left,transparent,#000 12%);mask-composite:intersect}}
 @media(min-width:760px){
   .hero{display:grid}
   .hero__bg{position:absolute;inset:0;aspect-ratio:auto;max-height:none}
@@ -95,14 +98,15 @@ a{color:var(--color-brand)}
 .section__head p{color:var(--color-ink-soft)} .section--dark .section__head p{color:var(--color-on-dark)}
 
 /* Sobre a doutora */
+.about{padding-bottom:0}
 .about__in{display:grid;gap:var(--space-6);align-items:end}
-.about__media{margin:0;max-width:30rem;justify-self:center;width:100%}
-.about__media img{width:100%;height:auto}
-.about__copy{padding-bottom:var(--space-6)}
+.about__media{margin:0;max-width:38rem;justify-self:center;width:100%}
+.about__media img{width:100%;height:auto;display:block}
+.about__copy{padding-bottom:var(--space-9)}
 .facts{display:grid;gap:var(--space-2);margin:var(--space-5) 0}
 .facts li{padding-left:var(--space-5);position:relative}
 .facts li::before{content:"";position:absolute;left:0;top:.8em;width:.8rem;height:2px;background:var(--color-brand)}
-@media(min-width:880px){.about__in{grid-template-columns:1fr 1fr;gap:var(--space-8)}.about__copy{padding-bottom:var(--space-7)}}
+@media(min-width:880px){.about__in{grid-template-columns:1fr 1fr;gap:var(--space-8)}.about__copy{padding-bottom:var(--space-9)}.about__in{align-items:stretch}.about__media{position:relative;max-width:none;justify-self:stretch}.about__media img{position:absolute;inset:0;height:100%;object-fit:contain;object-position:center bottom}}
 
 /* Clinica */
 .clinic__in{display:grid;gap:var(--space-7);align-items:center}

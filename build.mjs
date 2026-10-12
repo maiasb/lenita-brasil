@@ -141,7 +141,7 @@ ${hasUrl ? `<link rel="canonical" href="${esc(c.site.url)}">\n<meta property="og
 
 <section id="dra" class="section section--rose about" aria-labelledby="t-dra">
   <div class="container about__in">
-    <figure class="about__media reveal">${picture(c.about.image, c.about.imageAlt, { sizes: "(min-width:880px) 480px, 90vw" })}</figure>
+    <figure class="about__media reveal">${picture(c.about.image, c.about.imageAlt, { sizes: "(min-width:880px) 608px, 90vw" })}</figure>
     <div class="about__copy">
       <h2 id="t-dra" class="reveal">${esc(c.about.title)}</h2>
       ${c.about.paragraphs.map((p) => `<p class="reveal">${esc(p)}</p>`).join("")}

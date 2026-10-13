@@ -72,7 +72,7 @@ a{color:var(--color-brand)}
 @media(max-width:1099.98px){.badges{justify-content:center}}
 .badges li{font-size:var(--fs-xs);padding:var(--space-1) var(--space-3);border:1px solid var(--color-brand);border-radius:var(--radius-pill);color:var(--color-brand)}
 /* mobile: a foto some suavemente no bege, sem cantos aparentes */
-@media(max-width:1099.98px){.hero__bg img{object-position:80% 20%;-webkit-mask-image:linear-gradient(to bottom,#000 70%,transparent),linear-gradient(to left,transparent,#000 12%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,#000 70%,transparent),linear-gradient(to left,transparent,#000 12%);mask-composite:intersect}}
+@media(max-width:1099.98px){.hero__bg img{object-position:100% 20%;-webkit-mask-image:linear-gradient(to bottom,#000 70%,transparent),linear-gradient(to right,transparent,#000 22%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,#000 70%,transparent),linear-gradient(to right,transparent,#000 22%);mask-composite:intersect}}
 @media(min-width:1100px){
   .hero{display:grid}
   .hero__bg{position:absolute;inset:0;aspect-ratio:auto;max-height:none}
@@ -82,7 +82,7 @@ a{color:var(--color-brand)}
 
 /* Ajustes do hero (apos as regras base): sem sobrepor a foto no desktop; CTA mais alto no celular */
 @media(min-width:1100px){.hero__copy{max-width:min(34rem,52vw)}.hero h1{font-size:clamp(1.9rem,1rem + 2.6vw,3rem)}}
-@media(max-width:1099.98px){.hero__bg{max-height:15rem}@media(min-width:600px){.hero__bg{aspect-ratio:auto;height:20rem;max-height:none}.hero__bg img{object-position:75% 18%}}.hero__in{padding-block:var(--space-4) var(--space-6)}.hero h1{margin-bottom:var(--space-4)}}
+@media(max-width:1099.98px){.hero__bg{width:100%;aspect-ratio:auto;height:15rem;max-height:none}.hero__bg img{position:absolute;inset:0;width:100%;height:100%;max-width:none}@media(min-width:600px){.hero__bg{aspect-ratio:auto;height:20rem;max-height:none}.hero__bg img{object-position:100% 18%}}.hero__in{padding-block:var(--space-4) var(--space-6)}.hero h1{margin-bottom:var(--space-4)}}
 
 /* Autoridade */
 .authority{background:var(--color-dark);color:var(--color-on-dark);padding-block:var(--space-6)}

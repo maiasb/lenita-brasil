@@ -37,6 +37,7 @@ const section = (id, cls, inner, labelledby) =>
 
 // Logos SEM epiteto (nao ha RQE). Reativar a versao com epiteto so quando doctor.rqe existir.
 const logoH = `<img src="assets/logo/logo-horizontal.svg" alt="Lenita Brasil" width="1732" height="319">`;
+const logoHLight = `<img class="brand__light" src="assets/logo/logo-horizontal-claro.svg" alt="" width="1732" height="319">`;
 const logoV = `<img src="assets/logo/logo-vertical.svg" alt="Lenita Brasil" width="705" height="850">`;
 
 // CTA generico unico: consulta. Exame so na secao Exames (botoes por grupo, link de texto) e no menu.
@@ -76,27 +77,43 @@ const jsonLd = {
 };
 const faqLd = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: c.faq.items.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) };
 
-const procedureCard = (p) => `<li class="proc reveal">
-  <div class="proc__img">${picture(p.image, p.imageAlt, { sizes: "(min-width:960px) 280px, (min-width:600px) 45vw, 90vw", style: `object-position:${p.pos}` })}</div>
-  <h3>${esc(p.title)}</h3>
-  <p class="proc__short">${esc(p.short)}</p>
-  <details class="proc__more"><summary>Saiba mais</summary>
-    <div>${p.text.map((t) => `<p>${esc(t)}</p>`).join("")}${cta(`Perguntar sobre ${p.title}`, { msg: `Olá! Vim pelo site e gostaria de agendar uma consulta para avaliar ${p.title}.`, cls: "btn--sm btn--alt", aria: `Perguntar pelo WhatsApp sobre ${p.title}` })}</div>
+// Ordem de leitura e do menu: agendar -> procedimentos -> Dra. -> clinica -> laboratorios -> exames -> duvidas.
+const navLabel = Object.fromEntries(c.nav.map((n) => [n.href, n.label]));
+const navItems = [
+  { href: "#como-agendar", label: c.steps.title },
+  { href: "#procedimentos", label: navLabel["#procedimentos"] },
+  { href: "#dra", label: navLabel["#dra"] },
+  { href: "#clinica", label: navLabel["#clinica"] },
+  { href: "#laboratorios", label: navLabel["#laboratorios"] },
+  { href: "#exames", label: navLabel["#exames"] },
+  { href: "#faq", label: c.faq.title },
+];
+
+const pad = (n) => String(n + 1).padStart(2, "0");
+
+// Procedimento: linha editorial numerada + painel (details exclusivo por name, acessivel sem JS).
+const procedureRow = (p, i) => `<li class="prow reveal">
+  <details class="pdet" name="procedimento"${i === 0 ? " open" : ""}>
+    <summary class="prow__sum"><span class="prow__n" aria-hidden="true">${pad(i)}</span><span class="prow__thumb" aria-hidden="true">${picture(p.image, "", { sizes: "6rem", style: `object-position:${p.pos}` })}</span><h3 class="prow__t">${esc(p.title)}</h3><span class="prow__s">${esc(p.short)}</span><span class="prow__i" aria-hidden="true"></span></summary>
+    <div class="pdet__body">
+      <figure class="pdet__fig">${picture(p.image, p.imageAlt, { sizes: "(min-width:760px) 14rem, 60vw", style: `object-position:${p.pos}` })}</figure>
+      <div class="pdet__txt">${p.text.map((t) => `<p>${esc(t)}</p>`).join("")}${cta(`Perguntar sobre ${p.title}`, { msg: `Olá! Vim pelo site e gostaria de agendar uma consulta para avaliar ${p.title}.`, cls: "btn--sm btn--alt", aria: `Perguntar pelo WhatsApp sobre ${p.title}` })}</div>
+    </div>
   </details>
 </li>`;
 
-const aboutFacts = [`Médica · ${c.doctor.crm}${c.doctor.rqe ? ` · ${c.doctor.rqe}` : ""}`, "Clínica Lenita Brasil e Laboratórios Lenita Brasil"];
+// Exames: indice tipografico por grupo (tudo visivel, sem acordeao).
+const examRow = (g) => `<div class="xrow reveal">
+  <div class="xrow__h"><h3>${esc(g.title)}</h3><p>${g.items.length} exames</p></div>
+  <div class="xrow__b"><ul class="xlist">${g.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul>
+  ${cta(`Perguntar sobre exames ${g.title.toLowerCase()}`, { msg: `${c.whatsapp.exame.message} Tenho interesse em exames ${g.title.toLowerCase()}.`, cls: "btn--sm btn--alt-light", aria: `Perguntar pelo WhatsApp sobre exames ${g.title.toLowerCase()}` })}</div>
+</div>`;
 
-const examGroup = (g, i) => `<details class="exam reveal"${i === 0 ? " open" : ""}><summary><span>${esc(g.title)}</span></summary>
-  <ul>${g.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul>
-  ${cta(`Perguntar sobre exames ${g.title.toLowerCase()}`, { msg: `${c.whatsapp.exame.message} Tenho interesse em exames ${g.title.toLowerCase()}.`, cls: "btn--sm btn--alt-light", aria: `Perguntar pelo WhatsApp sobre exames ${g.title.toLowerCase()}` })}
-</details>`;
-
-const unitCard = (u) => `<article class="unit reveal">
-  <figure>${picture(u.image, u.imageAlt, { sizes: "(min-width:760px) 45vw, 90vw" })}<figcaption class="chip">${esc(u.name)}</figcaption></figure>
-  <p class="unit__addr">${esc(u.address)}</p>
-  <a class="pill" href="${mapLink(u.mapQuery)}" target="_blank" rel="noopener">${svgIcon("loc")}<span>${esc(c.labs.mapLabel)}<span class="sr"> - ${esc(u.name)} (abre em nova aba)</span></span></a>
-</article>`;
+const unitRow = (u) => `<li class="lunit reveal">
+  <figure class="lunit__fig">${picture(u.image, u.imageAlt, { sizes: "(min-width:760px) 22rem, 80vw" })}</figure>
+  <div class="lunit__txt"><h3>${esc(u.name)}</h3><p>${esc(u.address)}</p>
+  <a class="pill" href="${mapLink(u.mapQuery)}" target="_blank" rel="noopener">${svgIcon("loc")}<span>${esc(c.labs.mapLabel)}<span class="sr"> - ${esc(u.name)} (abre em nova aba)</span></span></a></div>
+</li>`;
 
 
 const html = `<!doctype html>
@@ -125,40 +142,61 @@ ${hasUrl ? `${c.site.canonical ? `<link rel="canonical" href="${esc(c.site.url)}
 </head>
 <body>
 <a class="skip" href="#main">Pular para o conteúdo</a>
-<header class="topbar" id="topbar">
-  <div class="container topbar__in">
-    <a class="brand" href="#top" aria-label="${esc(c.doctor.name)} - início">${logoH}</a>
-    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav"><span class="menu-btn__bars" aria-hidden="true"></span><span class="sr">Menu</span></button>
-    <nav class="nav" id="nav" aria-label="Principal"><ul>${c.nav.map((n) => `<li><a href="${n.href}">${esc(n.label)}</a></li>`).join("")}</ul></nav>
-    ${socials}
+<header class="bar bar--dark" id="topbar">
+  <div class="container bar__in">
+    <a class="brand" href="#top" aria-label="${esc(c.doctor.name)} - início">${logoH.replace("<img ", '<img class="brand__dark" ')}${logoHLight}</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="menu-btn__t" data-open="Menu" data-close="Fechar">Menu</span><span class="menu-btn__bars" aria-hidden="true"></span></button>
   </div>
 </header>
+<div class="menu" id="menu" inert>
+  <div class="container menu__in">
+    <nav aria-label="Principal"><ul class="menu__list">${navItems.map((n) => `<li><a href="${n.href}">${esc(n.label)}</a></li>`).join("")}</ul></nav>
+    <div class="menu__side"><p class="menu__tag">${esc(c.footer.tagline)}</p>
+      <p><a class="phone phone--sm" href="${waLink()}" target="_blank" rel="noopener" data-cta>${svgIcon("whats", "phone__icon")}<span>${esc(c.whatsapp.display)}</span></a></p>
+      <p><a class="plain" href="${c.doctor.instagram}" target="_blank" rel="noopener">${svgIcon("insta", "icon icon--sm")}${esc(c.doctor.instagramHandle)}</a></p></div>
+  </div>
+</div>
 <main id="main">
-<section id="top" class="hero">
-  <div class="hero__bg">${picture(c.hero.image, c.hero.imageAlt, { sizes: "(min-width:760px) 100vw, 200vw", eager: true })}</div>
+<section id="top" class="hero" data-dark>
   <div class="container hero__in">
     <div class="hero__copy">
       <h1 class="reveal">${esc(c.hero.title)}</h1>
       <p class="hero__text reveal">${esc(c.hero.text)}</p>
-      ${ctaMain({ cls: "btn--lg" })}
+      ${ctaMain({ cls: "btn--lg btn--on-dark" })}
       <p class="hero__exams reveal"><a class="tlink" href="#exames">${esc(c.hero.examsLink)}</a></p>
-      <ul class="badges reveal">${c.hero.badges.map((b) => `<li>${esc(b)}</li>`).join("")}</ul>
     </div>
+    <figure class="hero__media">${picture(c.hero.image, c.hero.imageAlt, { sizes: "(min-width:900px) 34rem, 80vw", eager: true })}</figure>
+  </div>
+  <div class="container">
+    <ul class="badges reveal" aria-label="Informações em destaque">${c.hero.badges.map((b) => `<li>${esc(b)}</li>`).join("")}<li><a class="badges__tel" href="${waLink()}" target="_blank" rel="noopener" aria-label="WhatsApp ${esc(c.whatsapp.display)}" data-cta>${svgIcon("whats", "badges__icon")}<span>${esc(c.whatsapp.display)}</span></a></li></ul>
   </div>
 </section>
 
-<section class="authority" aria-label="${esc(c.authority.title)}">
-  <div class="container"><ul class="stats">${c.authority.items.map((i) => `<li class="reveal"><strong>${esc(i.value)}</strong><span>${esc(i.label)}</span></li>`).join("")}</ul></div>
+<section id="como-agendar" class="section steps" aria-labelledby="t-steps">
+  <div class="container">
+    <header class="head reveal"><h2 id="t-steps">${esc(c.steps.title)}</h2></header>
+    <ol class="timeline">${c.steps.items.map((s, i) => `<li class="tl reveal"><span class="tl__mark" aria-hidden="true"></span><span class="tl__n" aria-hidden="true">${i + 1}</span><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></li>`).join("")}</ol>
+    ${ctaMain()}
+  </div>
+</section>
+
+<section id="procedimentos" class="section section--warm procs" aria-labelledby="t-proc">
+  <div class="container">
+    <header class="head reveal"><h2 id="t-proc">${esc(c.procedures.title)}</h2><div class="head__aside"><p>${esc(c.procedures.text)}</p><p class="lead">${esc(c.procedures.lead)}</p></div></header>
+    <ol class="plist">${c.procedures.items.map(procedureRow).join("")}</ol>
+    <p class="note procs__note reveal">${esc(c.procedures.note)}</p>
+    <p class="reveal">${tlink(c.procedures.linkText, c.whatsapp.consulta.message)}</p>
+  </div>
 </section>
 
 <section id="dra" class="section section--rose about" aria-labelledby="t-dra">
   <div class="container about__in">
-    <figure class="about__media reveal">${picture(c.about.image, c.about.imageAlt, { sizes: "(min-width:880px) 608px, 90vw" })}</figure>
+    <figure class="about__media reveal">${picture(c.about.image, c.about.imageAlt, { sizes: "(min-width:880px) 34rem, 90vw" })}</figure>
     <div class="about__copy">
       <h2 id="t-dra" class="reveal">${esc(c.about.title)}</h2>
       ${c.about.paragraphs.map((p) => `<p class="reveal">${esc(p)}</p>`).join("")}
-      <ul class="facts reveal">${aboutFacts.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
-      <div class="reveal">${cta(c.about.cta, { cls: "btn--dark" })}</div>
+      <ul class="ficha reveal" aria-label="${esc(c.authority.title)}">${c.authority.items.map((i) => `<li><strong>${esc(i.value)}</strong><span>${esc(i.label)}</span></li>`).join("")}</ul>
+      <div class="ctas reveal">${cta(c.about.cta, { msg: c.whatsapp.consulta.message, cls: "btn--dark" })}</div>
     </div>
   </div>
 </section>
@@ -168,60 +206,45 @@ ${hasUrl ? `${c.site.canonical ? `<link rel="canonical" href="${esc(c.site.url)}
     <div class="clinic__copy">
       <h2 id="t-clinica" class="reveal">${esc(c.clinic.title)}</h2>
       ${c.clinic.paragraphs.map((p) => `<p class="reveal">${esc(p)}</p>`).join("")}
+      <p class="clinic__cta reveal"><a class="pill" href="#laboratorios">${esc(c.clinic.cta)}</a></p>
     </div>
-    <figure class="clinic__media reveal">${picture(c.clinic.image, c.clinic.imageAlt, { sizes: "(min-width:880px) 480px, 90vw" })}</figure>
-    <p class="clinic__cta reveal"><a class="pill" href="#laboratorios">${esc(c.clinic.cta)}</a></p>
+    <figure class="clinic__media reveal">${picture(c.clinic.image, c.clinic.imageAlt, { sizes: "(min-width:880px) 34rem, 90vw" })}</figure>
   </div>
 </section>
 
-<section id="procedimentos" class="section section--warm" aria-labelledby="t-proc">
+<section id="laboratorios" class="section section--warm labs" aria-labelledby="t-lab">
   <div class="container">
-    <header class="section__head center reveal"><h2 id="t-proc">${esc(c.procedures.title)}</h2><p>${esc(c.procedures.text)}</p><p class="lead">${esc(c.procedures.lead)}</p></header>
-    <ul class="procs">${c.procedures.items.map(procedureCard).join("")}</ul>
-    <p class="note center reveal">${esc(c.procedures.note)}</p>
-    <p class="center reveal">${tlink(c.procedures.linkText, c.whatsapp.consulta.message)}</p>
+    <header class="head reveal"><h2 id="t-lab">${esc(c.labs.title)}</h2><div class="head__aside"><p>${esc(c.labs.text)}</p></div></header>
+    <ul class="lunits">${c.labs.units.map(unitRow).join("")}</ul>
   </div>
 </section>
 
-<section id="laboratorios" class="section" aria-labelledby="t-lab">
+<section id="exames" class="section section--dark exams" aria-labelledby="t-exames" data-dark>
   <div class="container">
-    <header class="section__head center reveal"><h2 id="t-lab">${esc(c.labs.title)}</h2><p>${esc(c.labs.text)}</p></header>
-    <div class="units">${c.labs.units.map(unitCard).join("")}</div>
+    <header class="head reveal"><h2 id="t-exames">${esc(c.exams.title)}</h2><div class="head__aside"><p>${esc(c.exams.text)}</p></div></header>
+    <div class="xindex">${c.exams.groups.map(examRow).join("")}</div>
+    <p class="exams__more reveal">${tlink(c.exams.linkText, c.whatsapp.exame.message)}</p>
   </div>
 </section>
 
-<section id="exames" class="section section--dark exams" aria-labelledby="t-exames">
-  <div class="container">
-    <header class="section__head center reveal"><h2 id="t-exames">${esc(c.exams.title)}</h2><p>${esc(c.exams.text)}</p></header>
-    <div class="exams__grid">${c.exams.groups.map(examGroup).join("")}</div>
-    <p class="center reveal exams__more">${tlink(c.exams.linkText, c.whatsapp.exame.message)}</p>
-  </div>
-</section>
-
-<section id="como-agendar" class="section section--warm" aria-labelledby="t-steps">
-  <div class="container">
-    <header class="section__head center reveal"><h2 id="t-steps">${esc(c.steps.title)}</h2></header>
-    <ol class="steps">${c.steps.items.map((s, i) => `<li class="step reveal"><span class="step__n" aria-hidden="true">${i + 1}</span><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></li>`).join("")}</ol>
-    <div class="center reveal">${ctaMain()}</div>
-  </div>
-</section>
-
-<section id="faq" class="section" aria-labelledby="t-faq">
-  <div class="container">
-    <header class="section__head center reveal"><h2 id="t-faq">${esc(c.faq.title)}</h2></header>
-    <div class="faq">${c.faq.items.map((f) => `<details class="reveal"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}</div>
-    <div class="faq__cta center reveal"><p>${esc(c.faq.ctaText)}</p>${cta(c.faq.cta, { msg: c.whatsapp.consulta.message })}</div>
+<section id="faq" class="section faq" aria-labelledby="t-faq">
+  <div class="container faq__in">
+    <div class="faq__side">
+      <h2 id="t-faq" class="reveal">${esc(c.faq.title)}</h2>
+      <p class="reveal">${esc(c.faq.ctaText)}</p>
+      <div class="reveal">${cta(c.faq.cta, { msg: c.whatsapp.consulta.message })}</div>
+    </div>
+    <div class="faq__list">${c.faq.items.map((f) => `<details class="reveal"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}</div>
   </div>
 </section>
 
 <section id="contato" class="section section--rose contact" aria-labelledby="t-contato">
   <div class="container contact__in">
-    <figure class="contact__media reveal">${picture(c.contact.image, c.contact.imageAlt, { sizes: "(min-width:880px) 340px, 60vw" })}</figure>
     <div class="contact__copy">
       <h2 id="t-contato" class="reveal">${esc(c.contact.title)}</h2>
       <p class="reveal">${esc(c.contact.text)}</p>
       ${ctaMain({ cls: "btn--dark" })}
-      <p class="reveal">${esc(c.contact.orWhats)}</p>
+      <p class="contact__or reveal">${esc(c.contact.orWhats)}</p>
       <p class="reveal"><a class="phone" href="${waLink()}" target="_blank" rel="noopener" data-cta>${svgIcon("whats", "phone__icon")}<span>${esc(c.whatsapp.display)}</span></a></p>
     </div>
     <form class="form reveal" id="form" action="${waLink()}" method="get" data-wa="${c.whatsapp.number}" novalidate>
@@ -239,7 +262,7 @@ ${hasUrl ? `${c.site.canonical ? `<link rel="canonical" href="${esc(c.site.url)}
 <footer class="footer">
   <div class="container footer__in">
     <div class="footer__logo">${logoV}</div>
-    <nav aria-label="Rodapé"><ul class="footer__nav"><li><a href="#top">Home</a></li>${c.nav.map((n) => `<li><a href="${n.href}">${esc(n.label)}</a></li>`).join("")}</ul></nav>
+    <nav aria-label="Rodapé"><ul class="footer__nav"><li><a href="#top">Início</a></li>${navItems.map((n) => `<li><a href="${n.href}">${esc(n.label)}</a></li>`).join("")}</ul></nav>
     <div class="footer__about"><p class="footer__tag">${esc(c.footer.tagline)}</p><p>${esc(c.footer.text)}</p>
       <p><a class="phone phone--sm" href="${waLink()}" target="_blank" rel="noopener" data-cta>${svgIcon("whats", "phone__icon")}<span>${esc(c.whatsapp.display)}</span></a></p></div>
     <div class="footer__units">${c.labs.units.map((u) => `<p><span class="chip chip--outline">${esc(u.name)}</span><br>${esc(u.address)}</p>`).join("")}
@@ -272,7 +295,7 @@ writeFileSync(new URL("./privacidade.html", import.meta.url), `<!doctype html>
 <link rel="stylesheet" href="src/styles.css">
 </head>
 <body>
-<header class="topbar is-stuck"><div class="container topbar__in"><a class="brand" href="./" aria-label="${esc(c.doctor.name)} - início">${logoH}</a></div></header>
+<header class="bar is-stuck"><div class="container bar__in"><a class="brand" href="./" aria-label="${esc(c.doctor.name)} - início">${logoH}</a></div></header>
 <main id="main" class="section prose"><div class="container">
 <h1>${esc(pp.h1)}</h1>
 ${pp.sections.map((x) => `<h2>${esc(x.h)}</h2>${x.p.map((t) => `<p>${esc(t)}</p>`).join("")}`).join("\n")}

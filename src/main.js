@@ -1,4 +1,4 @@
-// Interacoes leves, sem dependencias: reveal on scroll, menu mobile, topbar, formulario -> WhatsApp.
+// Interacoes leves, sem dependencias: reveal on scroll, menu em tela cheia, barra, formulario -> WhatsApp.
 (() => {
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const els = document.querySelectorAll(".reveal");
@@ -14,17 +14,54 @@
     els.forEach((e, i) => { e.style.setProperty("--d", `${(i % 4) * 70}ms`); io.observe(e); });
   }
 
+  // Barra: ganha linha ao rolar e troca para a versao oliva (logo claro) enquanto estiver sobre uma secao escura
   const bar = document.getElementById("topbar");
-  const onScroll = () => bar.classList.toggle("is-stuck", scrollY > 8);
-  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  const darkEls = [...document.querySelectorAll("[data-dark]")];
+  const sync = () => {
+    bar.classList.toggle("is-stuck", scrollY > 8);
+    const h = bar.offsetHeight, y = scrollY < h ? h + 1 : h / 2; // no topo, a secao logo abaixo da barra define o tom
+    bar.classList.toggle("bar--dark", darkEls.some((el) => { const r = el.getBoundingClientRect(); return r.top <= y && r.bottom >= y; }));
+  };
+  addEventListener("scroll", sync, { passive: true }); addEventListener("resize", sync); sync(); // leitura barata (poucos retangulos), sem layout forcado em cascata
 
-  // Menu mobile (botao + Esc + fecha ao escolher item)
+  // CTA fixo (FAB): esconde enquanto o CTA principal do hero, o contato ou o rodape estao a vista
+  const fab = document.querySelector(".fab");
+  if (fab && "IntersectionObserver" in window) {
+    const seen = new Set();
+    const fio = new IntersectionObserver((entries) => {
+      entries.forEach((en) => (en.isIntersecting ? seen.add(en.target) : seen.delete(en.target)));
+      fab.classList.toggle("is-away", seen.size > 0);
+    });
+    document.querySelectorAll(".hero .btn, #contato, .footer").forEach((el) => fio.observe(el));
+  }
+
+  // Menu em tela cheia: botao, Esc, foco preso no overlay, fecha ao escolher item; restante da pagina inerte
   const btn = document.querySelector(".menu-btn");
-  const nav = document.getElementById("nav");
-  const setMenu = (open) => { btn.setAttribute("aria-expanded", String(open)); nav.classList.toggle("is-open", open); };
-  btn.addEventListener("click", () => setMenu(btn.getAttribute("aria-expanded") !== "true"));
-  nav.addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false); });
-  addEventListener("keydown", (e) => { if (e.key === "Escape" && nav.classList.contains("is-open")) { setMenu(false); btn.focus(); } });
+  const menu = document.getElementById("menu");
+  const label = btn.querySelector(".menu-btn__t");
+  const outside = [document.getElementById("main"), document.querySelector(".footer"), document.querySelector(".fab"), document.querySelector(".skip")];
+  const isOpen = () => menu.classList.contains("is-open");
+  const setMenu = (open) => {
+    btn.setAttribute("aria-expanded", String(open));
+    label.textContent = open ? label.dataset.close : label.dataset.open;
+    menu.classList.toggle("is-open", open);
+    document.body.classList.toggle("menu-open", open);
+    menu.inert = !open;
+    outside.forEach((el) => el && (el.inert = open));
+    document.documentElement.style.overflow = open ? "hidden" : "";
+  };
+  btn.addEventListener("click", () => setMenu(!isOpen()));
+  menu.addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false); });
+  addEventListener("keydown", (e) => {
+    if (!isOpen()) return;
+    if (e.key === "Escape") { setMenu(false); btn.focus(); return; }
+    if (e.key === "Tab") {
+      const items = [btn, ...menu.querySelectorAll("a[href]")];
+      const first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
 
   // Formulario -> abre WhatsApp com a mensagem montada (sem backend; o site nao guarda os dados)
   const form = document.getElementById("form");

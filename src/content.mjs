@@ -57,8 +57,8 @@ export default {
     title: "Consulta médica e exames de laboratório em Belém e Castanhal",
     text: "Agende sua consulta. A equipe responde pelo WhatsApp e informa unidades, horários e valores.",
     examsLink: "Procurando exames? Ver exames",
-    image: { base: "hero", widths: [960, 1920], w: 1920, h: 791 },
-    imageAlt: "Dra. Lenita Brasil, médica, sorrindo com a mão apoiada no queixo.",
+    image: { base: "contato", widths: [600, 900], w: 900, h: 1350 },
+    imageAlt: "Dra. Lenita Brasil sorrindo, com as mãos sob o queixo.",
     badges: ["Consulta médica", "Exames laboratoriais", "Belém e Castanhal", "CRM-PA 10896"],
   },
 
@@ -91,8 +91,8 @@ export default {
       "A Clínica Lenita Brasil possui duas unidades: uma em Belém e outra em Castanhal.",
     ],
     cta: "Ver endereços",
-    image: { base: "clinica", widths: [640, 1000], w: 1000, h: 667 },
-    imageAlt: "Médica de jaleco com estetoscópio. Imagem ilustrativa.",
+    image: { base: "hero", widths: [960, 1920], w: 1920, h: 791 }, // recorte da foto da Dra. (clinica-*.webp, estetoscopio desfocado, ficou sem uso)
+    imageAlt: "Dra. Lenita Brasil de blusa cor de areia, com a mão sob o queixo, em ambiente claro.",
   },
 
   labs: {
@@ -270,8 +270,6 @@ export default {
     privacy:
       "Ao enviar, o site apenas monta uma mensagem e abre o WhatsApp com o que você preencheu; este site não guarda esses dados. Eles são usados somente para responder ao seu contato. O WhatsApp tem política de privacidade própria.",
     privacyLink: "Como este site funciona (privacidade)",
-    image: { base: "contato", widths: [600, 900], w: 900, h: 1350 },
-    imageAlt: "Dra. Lenita Brasil sorrindo, com as mãos sob o queixo.",
   },
 
   footer: {

@@ -11,7 +11,8 @@ Site estático, sem dependências (Node 18+ só para gerar o HTML). Layout basea
 ## Onde mexer
 - Cores, fontes, espaçamentos, raios, sombras: `src/tokens.css` (único lugar; `styles.css` só usa tokens).
 - Textos, links, WhatsApp, procedimentos, exames, FAQ, rodapé: `src/content.mjs`.
-- Estrutura/HTML: `build.mjs`. Estilos: `src/styles.css`. Interações (reveal, menu, form -> WhatsApp): `src/main.js`.
+- Estrutura/HTML: `build.mjs` (a ordem do menu/rodapé vem de `navItems`, derivada de `content.mjs`). Estilos: `src/styles.css`. Interações (reveal, menu em tela cheia com foco preso/Esc/`inert`, form -> WhatsApp): `src/main.js`.
+- Layout (redesign próprio, distinto do wireframe): barra mínima (`.bar`) + menu overlay (`.menu`); ordem: hero (texto + foto em arco) -> Como agendar (linha do tempo, símbolo como marcador) -> Procedimentos (`.plist`, `details name="procedimento"`) -> Dra. (`.ficha`) -> Clínica (recorte folha) -> Laboratórios (`.lunits`) -> Exames (índice `.xindex`, fundo escuro) -> FAQ -> Contato -> rodapé. Forma: linhas finas (`--color-line-strong`), numerais display, `--shape-arch`/`--shape-leaf`, símbolo como marca d'água (`--mark-opacity`); sem cartões com sombra. A foto do hero é `assets/img/contato-*` (`hero.image`); `hero-*.webp` ficou sem uso.
 - Imagens: `assets/img/` (WebP responsivo `nome-LARGURA.webp`; `content.mjs` guarda `{base, widths, w, h}`). Logos/selo/símbolo: `assets/logo/` (SVG extraídos dos PDFs oficiais, fundo removido). Ícones: `assets/icons/` (set oficial "NOVOS ICONES", inlinados com `currentColor`).
 
 ## Marca (MANUAL DE MARCA)
@@ -47,6 +48,6 @@ Regra: nenhum placeholder visível. Itens ocultos/reescritos:
 - Formulário sem e-mail; aviso de não escrever dados de saúde; `privacidade.html` (gerada pelo build) descreve o funcionamento real do site.
 
 ## Técnica
-- Alinhamento de CTAs: no desktop o botão acompanha o texto do bloco (texto à esquerda → botão na mesma borda do título; bloco `.center` → centralizado; nunca `justify-self:end`). Exceções centralizadas em todos os breakpoints: o CTA "Ver endereços" da Clínica (`.clinic__cta`, linha própria centralizada abaixo de texto+imagem) e todo o rodapé (`.footer`, blocos em grid de colunas iguais com conteúdo centralizado; também em `privacidade.html`). No celular (<=600px) todo `.btn` é largura total (máx. 24rem, centralizado, alvo >= 44px) e `tlink` centralizado.
+- Alinhamento de CTAs: no desktop o botão acompanha o texto do bloco (texto à esquerda → botão na mesma borda do título; bloco `.center` → centralizado; nunca `justify-self:end`). Títulos de seção ficam à esquerda em toda a página (exceção deliberada: só o rodapé). "Ver endereços" (`.clinic__cta`) fica à esquerda sob o texto da Clínica (centralizado só no celular). Exceção centralizada em todos os breakpoints: todo o rodapé (`.footer`, blocos em grid de colunas iguais com conteúdo centralizado; também em `privacidade.html`). No celular (<=600px) todo `.btn` é largura total (máx. 24rem, centralizado, alvo >= 44px) e `tlink` centralizado.
 - Animar só `transform`/`opacity`; respeitar `prefers-reduced-motion`; contraste AA; foco visível (outline com token); alvos >= 44px.
 - Formulário não tem backend: monta mensagem e abre `wa.me` (nada é armazenado).

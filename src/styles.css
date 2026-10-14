@@ -58,7 +58,8 @@ h2.label,.footer__h{margin:0}
 .bar__nav ul{display:flex;gap:var(--space-7)}
 .bar__nav a{display:inline-flex;align-items:center;min-height:44px;color:var(--color-ink);font-size:var(--fs-label);letter-spacing:var(--ls-label);text-transform:uppercase;text-decoration:none;border-bottom:1px solid transparent;transition:color .25s,border-color .25s}
 .bar__nav a:hover{color:var(--color-brand-strong);border-bottom-color:var(--color-brand)}
-.menu-btn{display:inline-flex;align-items:center;gap:var(--space-3);min-height:48px;padding:0 var(--space-2);border:0;background:transparent;color:var(--color-ink);font:var(--fw-regular) var(--fs-label)/1 var(--font-body);letter-spacing:var(--ls-label);text-transform:uppercase;cursor:pointer}
+.menu-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-3);min-height:48px;min-width:48px;padding:0 var(--space-2);border:0;background:transparent;color:var(--color-ink);font:var(--fw-regular) var(--fs-label)/1 var(--font-body);letter-spacing:var(--ls-label);text-transform:uppercase;cursor:pointer}
+.menu-btn__t{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .menu-btn__bars,.menu-btn__bars::before{display:block;width:1.75rem;height:1px;background:currentColor;transition:transform .3s var(--ease)}
 .menu-btn__bars{position:relative} .menu-btn__bars::before{content:"";position:absolute;left:0;top:-6px}
 .menu-btn__bars::after{content:"";position:absolute;left:0;top:6px;width:1.75rem;height:1px;background:currentColor;transition:transform .3s var(--ease)}

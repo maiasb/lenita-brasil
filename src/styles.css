@@ -145,7 +145,7 @@ h2.label,.footer__h{margin:0}
 .clinic__media{position:relative;margin:0 auto var(--space-6);width:100%;max-width:28rem}
 /* Cartas em leque: ambas giram em torno de um mesmo pivo abaixo delas; a da frente inclina a direita, a de tras a esquerda; clicar na de tras traz para frente */
 .deck{position:relative;width:100%;aspect-ratio:1/1.04}
-.deck__card{position:absolute;left:19%;top:5%;width:62%;aspect-ratio:4/5;margin:0;overflow:hidden;border:1px solid var(--color-line-strong);border-radius:var(--radius-sm);background:var(--color-surface);transform-origin:50% 125%;transition:transform .7s cubic-bezier(.2,.7,.2,1),opacity .5s,z-index 0s .3s;will-change:transform}
+.deck__card{position:absolute;left:17.5%;top:5%;width:65%;aspect-ratio:4/5;margin:0;overflow:hidden;border:1px solid var(--color-line-strong);border-radius:var(--radius-sm);background:var(--color-surface);transform-origin:50% 125%;transition:transform .7s cubic-bezier(.2,.7,.2,1),opacity .5s,z-index 0s .3s;will-change:transform}
 .deck__card[data-z=front]{z-index:2}
 .deck__card[data-z=back]{z-index:1}
 .deck__card[data-pos=front]{transform:translateX(7%) rotate(8deg)}
@@ -172,7 +172,7 @@ h2.label,.footer__h{margin:0}
 @media(min-width:600px){.ucards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(min-width:900px){
   .clinic__in{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--space-8)}
-  .clinic__media{margin:0;max-width:32rem}
+  .clinic__media{margin:0;max-width:36rem}
 }
 
 /* Procedimentos: cabecalho em linha + grade 4x2 de celulas com bordas finas + banner largo */
@@ -263,6 +263,9 @@ h2.label,.footer__h{margin:0}
 .form__status{margin:0;min-height:1.2em;font-size:var(--fs-sm);color:var(--color-brand-strong)}
 .form .note a{color:var(--color-brand-strong)}
 .form .btn{justify-self:start;min-width:12rem}
+/* Coluna unica: botao do formulario e "Perguntar sobre exames" esticados na largura */
+@media(max-width:879px){.form .btn{justify-self:stretch;width:100%;max-width:none;min-width:0}}
+@media(max-width:899px){.exams .ctas .btn{display:flex;width:100%;max-width:none}}
 /* Coluna unica (<880px): bloco de texto centralizado e espalhado na largura */
 @media(max-width:879px){.contact__copy{text-align:center}.contact h2{max-width:none}.contact__copy .label{justify-content:center}.wacard{display:flex;width:fit-content;margin-inline:auto;text-align:left}}
 @media(min-width:880px){.contact__in{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:var(--space-8)}}

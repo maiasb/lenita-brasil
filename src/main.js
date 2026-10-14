@@ -90,6 +90,28 @@
     d.addEventListener("close", () => b.focus());
   });
 
+  // Cartas das unidades: clicar (ou Enter/Espaco) na de tras a traz para frente; so transform/opacity, z-index troca no meio do movimento
+  document.querySelectorAll("[data-deck]").forEach((deck) => {
+    const cards = [...deck.querySelectorAll(".deck__card")];
+    if (cards.length < 2) return;
+    const apply = () => cards.forEach((c) => {
+      const back = c.dataset.pos === "back";
+      if (back) { c.setAttribute("role", "button"); c.tabIndex = 0; c.setAttribute("aria-label", `Trazer para frente a foto da ${c.dataset.name}`); }
+      else { c.removeAttribute("role"); c.removeAttribute("tabindex"); c.removeAttribute("aria-label"); }
+    });
+    const bring = (card) => {
+      if (card.dataset.pos !== "back") return;
+      cards.forEach((c) => { c.dataset.pos = c.dataset.z = c === card ? "front" : "back"; }); // o CSS atrasa a troca do z-index (transition)
+      apply();
+      cards.find((c) => c.dataset.pos === "back").focus({ preventScroll: true });
+    };
+    cards.forEach((c) => {
+      c.addEventListener("click", () => bring(c));
+      c.addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && c.dataset.pos === "back") { e.preventDefault(); bring(c); } });
+    });
+    apply();
+  });
+
   // Formulario -> abre WhatsApp com a mensagem montada (sem backend; o site nao guarda os dados)
   const form = document.getElementById("form");
   const status = document.getElementById("form-status");

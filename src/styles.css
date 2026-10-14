@@ -24,7 +24,6 @@ a{color:var(--color-brand-strong)}
 
 /* Rotulo em caixa-alta com filete a esquerda (pedido de fidelidade ao preview) */
 .label{display:inline-flex;align-items:center;gap:var(--space-3);font:var(--fw-regular) var(--fs-label)/1.3 var(--font-body);letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--color-brand-strong)}
-.label::before{content:"";width:var(--space-6);height:1px;background:currentColor;flex:none}
 p:has(>.label){margin-bottom:var(--space-4)}
 h2.label,.footer__h{margin:0}
 
@@ -143,9 +142,22 @@ h2.label,.footer__h{margin:0}
 
 /* Clinica: foto grande com cartao "02" no canto inferior direito + texto e 2 cartoes de unidade */
 .clinic__in{display:grid;gap:var(--space-7);align-items:center}
-.clinic__media{position:relative;margin:0 0 var(--space-6)}
-.clinic__media img{width:100%;aspect-ratio:5/4;object-fit:cover;object-position:50% 40%;border-radius:var(--radius-sm)}
-.clinic__count{position:absolute;right:var(--space-4);bottom:calc(-1 * var(--space-6));display:grid;gap:var(--space-1);max-width:15rem;padding:var(--space-4) var(--space-5);background:var(--color-surface);border:1px solid var(--color-line-strong);border-radius:var(--radius-sm)}
+.clinic__media{position:relative;margin:0 auto var(--space-6);width:100%;max-width:28rem}
+/* Cartas em leque: ambas giram em torno de um mesmo pivo abaixo delas; a da frente inclina a direita, a de tras a esquerda; clicar na de tras traz para frente */
+.deck{position:relative;width:100%;aspect-ratio:1/1.04}
+.deck__card{position:absolute;left:19%;top:5%;width:62%;aspect-ratio:4/5;margin:0;overflow:hidden;border:1px solid var(--color-line-strong);border-radius:var(--radius-sm);background:var(--color-surface);transform-origin:50% 125%;transition:transform .7s cubic-bezier(.2,.7,.2,1),opacity .5s,z-index 0s .3s;will-change:transform}
+.deck__card[data-z=front]{z-index:2}
+.deck__card[data-z=back]{z-index:1}
+.deck__card[data-pos=front]{transform:translateX(7%) rotate(8deg)}
+.deck__card[data-pos=back]{transform:translateX(-3%) rotate(-11deg) scale(.96);opacity:.92}
+.deck__card img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;display:block}
+.deck__card figcaption{position:absolute;left:var(--space-3);bottom:var(--space-3);padding:var(--space-2) var(--space-3);background:var(--color-surface);border:1px solid var(--color-line);border-radius:var(--radius-sm);font-size:var(--fs-label);letter-spacing:.14em;text-transform:uppercase;line-height:1.3;color:var(--color-ink)}
+.deck__card[data-pos=back] figcaption{top:var(--space-3);bottom:auto;letter-spacing:.04em;font-size:.68rem;padding:var(--space-1) var(--space-2)}
+.deck__card[role=button]{cursor:pointer}
+.deck__card[role=button]:hover{transform:translateX(-4%) rotate(-14deg) scale(.97);opacity:1}
+.deck__card[data-pos=front]:hover{transform:translateX(8%) rotate(10deg) scale(1.02)}
+.deck__card[role=button]:focus-visible{outline:2px solid var(--color-focus);outline-offset:3px}
+.clinic__count{position:relative;margin:var(--space-5) auto 0;width:max-content;display:grid;gap:var(--space-1);max-width:15rem;padding:var(--space-4) var(--space-5);background:var(--color-surface);border:1px solid var(--color-line-strong);border-radius:var(--radius-sm)}
 .clinic__count strong{font-family:var(--font-display);font-size:var(--fs-3xl);font-weight:var(--fw-medium);line-height:1;color:var(--color-brand-strong)}
 .clinic__count span{font-size:var(--fs-label);letter-spacing:.14em;text-transform:uppercase;line-height:1.5;color:var(--color-ink-soft)}
 .clinic h2{max-width:14ch}
@@ -160,9 +172,7 @@ h2.label,.footer__h{margin:0}
 @media(min-width:600px){.ucards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(min-width:900px){
   .clinic__in{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--space-8)}
-  .clinic__media{margin:0}
-  .clinic__media img{aspect-ratio:5/6}
-  .clinic__count{right:calc(-1 * var(--space-6));bottom:var(--space-6)}
+  .clinic__media{margin:0;max-width:32rem}
 }
 
 /* Procedimentos: cabecalho em linha + grade 4x2 de celulas com bordas finas + banner largo */
@@ -253,6 +263,8 @@ h2.label,.footer__h{margin:0}
 .form__status{margin:0;min-height:1.2em;font-size:var(--fs-sm);color:var(--color-brand-strong)}
 .form .note a{color:var(--color-brand-strong)}
 .form .btn{justify-self:start;min-width:12rem}
+/* Coluna unica (<880px): bloco de texto centralizado e espalhado na largura */
+@media(max-width:879px){.contact__copy{text-align:center}.contact h2{max-width:none}.contact__copy .label{justify-content:center}.wacard{display:flex;width:fit-content;margin-inline:auto;text-align:left}}
 @media(min-width:880px){.contact__in{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:var(--space-8)}}
 
 /* Rodape (bege suave; centralizado, colunas iguais - regra do projeto; o preview alinha a esquerda) */
@@ -300,7 +312,6 @@ h2.label,.footer__h{margin:0}
   .form .btn{justify-self:center}
   p:has(>.tlink){text-align:center}
   .wacard{display:flex}
-  .clinic__count{right:var(--space-3)}
   .ficha{grid-template-columns:minmax(0,1fr)}
 }
 

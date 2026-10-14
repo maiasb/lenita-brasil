@@ -51,7 +51,7 @@ export default {
     labels: { dra: "A Doutora", clinica: "A Clínica", procedimentos: "Procedimentos", laboratorios: "Laboratórios", contato: "Contato" },
     proceduresBanner: "Toda indicação parte de avaliação médica.", // 1a frase de procedures.note, legenda do banner
     examsButton: "Perguntar sobre exames",
-    navTitle: "Navegação", unitsTitle: "Unidades", socialTitle: "Redes e contato",
+    navTitle: "Navegação", unitsTitle: "Unidades", deckLabel: "Fotos das unidades de Belém e Castanhal", socialTitle: "Redes e contato",
   },
 
   // Ordem e rotulos conforme SITE2.pdf
@@ -69,8 +69,8 @@ export default {
     text: "Agende sua consulta. A equipe responde pelo WhatsApp e informa unidades, horários e valores.",
     examsLink: "Procurando exames? Ver exames",
     procLink: "Ver procedimentos", // botao secundario (contorno) do hero: ancora #procedimentos, nao e CTA de WhatsApp
-    image: { base: "contato", widths: [600, 900], w: 900, h: 1350 },
-    imageAlt: "Dra. Lenita Brasil sorrindo, com as mãos sob o queixo.",
+    image: { base: "retrato", widths: [640, 1000, 1400], w: 1400, h: 1750 }, // DSC_0228 (fotos oficiais, estudio)
+    imageAlt: "Dra. Lenita Brasil, de camisa marrom, com as mãos sob o queixo.",
     wide: { base: "hero", widths: [960, 1920], w: 1920, h: 791 }, // banner largo sob a grade de procedimentos (foto da Dra.)
     wideAlt: "Dra. Lenita Brasil de blusa cor de areia, com a mão sob o queixo, em ambiente claro.",
     eyebrow: "Clínica e laboratórios", // reaproveita os nomes das secoes Clinica/Laboratorios
@@ -120,14 +120,14 @@ export default {
     units: [
       {
         name: "Unidade Belém",
-        address: "R. Bernal do Couto, nº 75 - Umarizal",
+        address: "R. Bernal do Couto, nº 75, Umarizal",
         mapQuery: "R. Bernal do Couto, 75, Umarizal, Belém, PA",
         image: { base: "unidade-belem", widths: [640, 1000], w: 1000, h: 875 },
         imageAlt: "Fachada da unidade de Belém, Lenita Brasil.",
       },
       {
         name: "Unidade Castanhal",
-        address: "Av. Marechal Deodoro, nº 368 - Ianetama",
+        address: "Av. Marechal Deodoro, nº 368, Ianetama",
         mapQuery: "Av. Marechal Deodoro, 368, Castanhal, PA",
         image: { base: "unidade-castanhal", widths: [640, 1000], w: 1000, h: 875 },
         imageAlt: "Fachada da unidade de Castanhal, Lenita Brasil.",
@@ -268,7 +268,7 @@ export default {
     ctaText: "Não encontrou o que procurava? A equipe responde pelo WhatsApp.",
     cta: "Agendar consulta",
     items: [
-      { q: "Onde ficam as unidades?", a: "Em Belém (R. Bernal do Couto, nº 75 - Umarizal) e em Castanhal (Av. Marechal Deodoro, nº 368 - Ianetama), no Pará." },
+      { q: "Onde ficam as unidades?", a: "Em Belém (R. Bernal do Couto, nº 75, Umarizal) e em Castanhal (Av. Marechal Deodoro, nº 368, Ianetama), no Pará." },
       { q: "Como agendo uma consulta ou exame?", a: "Para consulta, pelo botão \"Agendar consulta\" desta página; para exames, pelos botões da seção Exames. Ambos abrem o WhatsApp com a mensagem pronta. É só enviar." },
       { q: "Qual o valor da consulta e dos exames?", a: "Os valores são informados pela equipe no atendimento pelo WhatsApp." },
       { q: "Vocês atendem convênio?", a: "A equipe informa no atendimento pelo WhatsApp." },

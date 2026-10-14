@@ -110,7 +110,7 @@ const labGroup = (g) => `<li class="lgroup reveal">
 const unitCard = (u) => `<li class="ucard reveal">
   ${label(u.name)}
   <p class="ucard__addr">${esc(u.address)}</p>
-  <a class="ulink" href="${mapLink(u.mapQuery)}" target="_blank" rel="noopener">${esc(c.labs.mapLabel)}${svgIcon("loc", "ulink__ico")}<span class="sr"> - ${esc(u.name)} (abre em nova aba)</span></a>
+  <a class="ulink" href="${mapLink(u.mapQuery)}" target="_blank" rel="noopener">${esc(c.labs.mapLabel)}${svgIcon("loc", "ulink__ico")}<span class="sr">, ${esc(u.name)} (abre em nova aba)</span></a>
 </li>`;
 
 // Titulo do hero: a ultima parte (apos " em ") vai em italico na cor de destaque.
@@ -146,7 +146,7 @@ ${SHOW.faq ? `<script type="application/ld+json">${JSON.stringify(faqLd)}</scrip
 <a class="skip" href="#main">Pular para o conteúdo</a>
 <header class="bar" id="topbar">
   <div class="container bar__in">
-    <a class="brand" href="#top" aria-label="${esc(c.doctor.name)} - início">${logoH}</a>
+    <a class="brand" href="#top" aria-label="${esc(c.doctor.name)}, início">${logoH}</a>
     <nav class="bar__nav" aria-label="Principal"><ul>${barItems.map((n) => `<li><a href="${n.href}">${esc(n.label)}</a></li>`).join("")}</ul></nav>
     <a class="btn btn--sm bar__cta" href="${waLink()}" aria-label="${esc(c.whatsapp.consulta.label)} pelo WhatsApp" target="_blank" rel="noopener" data-cta><span>${esc(c.whatsapp.consulta.shortLabel)}</span></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="menu-btn__t" data-open="Menu" data-close="Fechar">Menu</span><span class="menu-btn__bars" aria-hidden="true"></span></button>
@@ -194,8 +194,11 @@ ${SHOW.faq ? `<script type="application/ld+json">${JSON.stringify(faqLd)}</scrip
 
 <section id="clinica" class="section section--rose clinic" aria-labelledby="t-clinica">
   <div class="container clinic__in">
-    <figure class="clinic__media reveal">${picture(c.clinic.image, c.clinic.imageAlt, { sizes: "(min-width:900px) 40rem, 90vw" })}
-      <figcaption class="clinic__count"><strong>${esc(c.clinic.count.n)}</strong><span>${esc(c.clinic.count.label)}</span></figcaption></figure>
+    <div class="clinic__media reveal">
+      <div class="deck" data-deck role="group" aria-label="${esc(c.ui.deckLabel)}">
+        ${c.labs.units.map((u, i) => `<figure class="deck__card" data-pos="${i === 0 ? "front" : "back"}" data-z="${i === 0 ? "front" : "back"}" data-name="${esc(u.name)}">${picture(u.image, u.imageAlt, { sizes: "(min-width:900px) 22rem, 70vw" })}<figcaption>${esc(u.name)}</figcaption></figure>`).join("")}
+      </div>
+      <p class="clinic__count"><strong>${esc(c.clinic.count.n)}</strong><span>${esc(c.clinic.count.label)}</span></p></div>
     <div class="clinic__copy">
       <p class="reveal">${label(c.ui.labels.clinica)}</p>
       <h2 id="t-clinica" class="reveal">${esc(c.clinic.title)}</h2>
@@ -303,7 +306,7 @@ writeFileSync(new URL("./privacidade.html", import.meta.url), `<!doctype html>
 <link rel="stylesheet" href="src/styles.css">
 </head>
 <body>
-<header class="bar is-stuck"><div class="container bar__in"><a class="brand" href="./" aria-label="${esc(c.doctor.name)} - início">${logoH}</a></div></header>
+<header class="bar is-stuck"><div class="container bar__in"><a class="brand" href="./" aria-label="${esc(c.doctor.name)}, início">${logoH}</a></div></header>
 <main id="main" class="section prose"><div class="container">
 <h1>${esc(pp.h1)}</h1>
 ${pp.sections.map((x) => `<h2>${esc(x.h)}</h2>${x.p.map((t) => `<p>${esc(t)}</p>`).join("")}`).join("\n")}

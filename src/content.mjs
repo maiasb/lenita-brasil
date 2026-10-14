@@ -66,7 +66,7 @@ export default {
 
   hero: {
     title: "Consulta médica e exames de laboratório em Belém e Castanhal",
-    text: "Agende sua consulta. A equipe responde pelo WhatsApp e informa unidades, horários e valores.",
+    text: "Atendimento médico com a Dra. Lenita Brasil e exames convencionais de laboratório. Para agendar, é só chamar a equipe pelo WhatsApp.",
     examsLink: "Procurando exames? Ver exames",
     procLink: "Ver procedimentos", // botao secundario (contorno) do hero: ancora #procedimentos, nao e CTA de WhatsApp
     image: { base: "retrato", widths: [640, 1000, 1400], w: 1400, h: 1750 }, // DSC_0228 (fotos oficiais, estudio)
@@ -75,7 +75,7 @@ export default {
     wideAlt: "Dra. Lenita Brasil de blusa cor de areia, com a mão sob o queixo, em ambiente claro.",
     eyebrow: "Clínica e laboratórios", // reaproveita os nomes das secoes Clinica/Laboratorios
     // Faixa rolante: so termos factuais ja presentes na copy (sem superlativos/promessas)
-    marquee: ["Consulta médica", "Exames laboratoriais", "Belém", "Castanhal", "Avaliação médica", "Atendimento pelo WhatsApp", "CRM-PA 10896"],
+    marquee: ["Consulta médica", "Exames laboratoriais", "Belém", "Castanhal", "Avaliação médica", "Atendimento pelo WhatsApp", "Duas unidades"],
     marqueeLabel: "Em resumo",
     caption: { name: "Dra. Lenita Brasil", role: "CRM-PA 10896" },
   },
@@ -94,7 +94,7 @@ export default {
   about: {
     title: "Dra. Lenita Brasil",
     paragraphs: [
-      "Médica à frente da clínica e dos laboratórios, a Dra. Lenita Brasil atende pacientes em consulta e acompanha a oferta de exames laboratoriais.",
+      "Médica à frente da clínica e dos laboratórios, a Dra. Lenita Brasil atende em consulta e acompanha a oferta de exames laboratoriais. Seu compromisso é cuidar da saúde e do bem-estar de cada paciente, com atenção a todas as etapas do atendimento.",
       "No consultório, a conversa vem antes da indicação: ela ouve sua queixa, avalia seu histórico e explica as opções disponíveis.",
     ],
     cta: "Agendar consulta",
@@ -105,8 +105,8 @@ export default {
   clinic: {
     title: "Clínica Lenita Brasil",
     paragraphs: [
-      "Na consulta, a Dra. Lenita Brasil ouve sua queixa, avalia a pele, o cabelo e o seu histórico, e explica as opções de tratamento, com benefícios, riscos e alternativas. Só então a indicação é feita.",
-      "A Clínica Lenita Brasil possui duas unidades: uma em Belém e outra em Castanhal.",
+      "Na clínica, tudo começa antes do procedimento. Cada consulta parte da avaliação da pele, do cabelo e do histórico de saúde. Só depois a Dra. Lenita Brasil apresenta as opções de tratamento, com benefícios, riscos e alternativas.",
+      "O atendimento acontece em duas unidades, uma em Belém e outra em Castanhal, com os endereços logo abaixo.",
     ],
     cta: "Ver endereços",
     image: { base: "unidade-belem", widths: [640, 1000], w: 1000, h: 875 }, // fachada (nao ha foto de interior; clinica-*.webp e estetoscopio, nao usar)
@@ -116,7 +116,7 @@ export default {
 
   labs: {
     title: "Laboratórios Lenita Brasil",
-    text: "Os Laboratórios Lenita Brasil têm duas unidades, em Belém e Castanhal. A equipe informa unidades, horários e valores no atendimento pelo WhatsApp.",
+    text: "Os Laboratórios Lenita Brasil realizam exames convencionais em duas unidades, em Belém e Castanhal.",
     units: [
       {
         name: "Unidade Belém",
@@ -139,7 +139,7 @@ export default {
   exams: {
     title: "Exames",
     text: "Veja abaixo a lista de exames convencionais disponíveis. A equipe informa no atendimento pelo WhatsApp se é preciso pedido médico, qual o preparo (como jejum) e como os resultados são entregues.",
-    linkText: "Em dúvida sobre qual exame? Fale com a equipe pelo WhatsApp",
+    linkText: "Não encontrou o exame que procura? Pergunte pelo WhatsApp",
     image: { base: "exames", widths: [640, 1000], w: 1000, h: 667 },
     imageAlt: "Profissional de laboratório de luvas azuis manuseando amostras. Imagem ilustrativa.",
     groups: [
@@ -161,14 +161,14 @@ export default {
     text: "Os procedimentos são realizados após avaliação médica. A indicação, o número de sessões e os cuidados dependem de cada caso.",
     lead: "Conheça os procedimentos oferecidos na clínica.",
     note: "Toda indicação parte de avaliação médica. A resposta é individual, não há garantia de resultado e podem existir riscos e efeitos adversos, explicados na consulta. Imagens ilustrativas.",
-    linkText: "Prefere conversar antes de escolher? Fale com a equipe pelo WhatsApp",
+    linkText: "Ficou com dúvida sobre algum procedimento? Pergunte pelo WhatsApp",
     items: [
       {
         title: "Toxina botulínica",
         short: "Aplicação em regiões da face definidas na avaliação.",
         text: [
-          "A toxina botulínica é aplicada em regiões da face como testa, entre as sobrancelhas e área dos olhos, conforme a avaliação médica.",
-          "A aplicação ponto a ponto considera a anatomia do rosto. A indicação depende da avaliação médica.",
+          "A toxina botulínica é aplicada em regiões da face como a testa, a área entre as sobrancelhas e a dos olhos, conforme a avaliação médica.",
+          "Antes de decidir, vale entender como o procedimento funciona e quando ele é indicado. A aplicação é feita ponto a ponto, com acompanhamento profissional, considerando a anatomia do rosto.",
         ],
         image: { base: "toxina-botulinica", widths: [480, 800], w: 800, h: 533 },
         imageAlt: "Aplicação de toxina botulínica na região lateral do rosto.",
@@ -178,8 +178,8 @@ export default {
         title: "Preenchimento labial",
         short: "Aplicação de ácido hialurônico nos lábios.",
         text: [
-          "O preenchimento labial é feito com ácido hialurônico e considera o formato do rosto, do sorriso e as proporções de cada pessoa.",
-          "A indicação depende da avaliação médica.",
+          "O preenchimento labial é feito com ácido hialurônico, escolhido e aplicado conforme o formato do rosto, do sorriso e as proporções de cada pessoa.",
+          "Na avaliação, a Dra. Lenita Brasil explica o que é possível no seu caso e como será o acompanhamento.",
         ],
         image: { base: "preenchimento-labial", widths: [480, 758], w: 758, h: 684 },
         imageAlt: "Close dos lábios de uma mulher com brilho labial.",
@@ -189,8 +189,8 @@ export default {
         title: "MesojectGun",
         short: "Equipamento que cria microcanais na pele.",
         text: [
-          "A MesojectGun é um equipamento que usa pulsos de energia para criar microcanais na pele, por onde ativos podem ser aplicados.",
-          "O protocolo é definido após avaliação médica. A indicação depende da avaliação médica.",
+          "A MesojectGun é um equipamento que usa pulsos de energia para criar microcanais na pele, por onde ativos podem ser aplicados. A aplicação não usa agulhas.",
+          "Os ativos e o número de sessões são definidos depois da avaliação médica.",
         ],
         image: { base: "mesoject-gun", widths: [480, 800], w: 800, h: 534 },
         imageAlt: "Aplicação com o equipamento MesojectGun no rosto.",
@@ -200,8 +200,8 @@ export default {
         title: "Terapia capilar",
         short: "Protocolo para couro cabeludo e fios, definido em consulta.",
         text: [
-          "A terapia capilar é voltada ao couro cabeludo e aos fios.",
-          "Na consulta, a Dra. Lenita Brasil avalia o caso e define se há indicação e qual protocolo seguir. A indicação depende da avaliação médica.",
+          "A terapia capilar é voltada ao couro cabeludo e aos fios. A queda de cabelo pode ter mais de uma causa, como carências nutricionais, alterações hormonais ou emagrecimento rápido.",
+          "Por isso, a primeira consulta serve para investigar o que está por trás do quadro. Só então a Dra. Lenita Brasil define se há indicação e qual protocolo seguir.",
         ],
         image: { base: "terapia-capilar", widths: [480, 800], w: 800, h: 1198 },
         imageAlt: "Profissional de luvas avaliando o couro cabeludo.",
@@ -211,8 +211,8 @@ export default {
         title: "Tratamento de manchas",
         short: "Avaliação da pele e protocolo definido caso a caso.",
         text: [
-          "O tratamento de manchas começa com a avaliação médica da pele e do histórico.",
-          "O protocolo pode incluir dermocosméticos e tecnologias específicas, conforme cada caso. A indicação depende da avaliação médica.",
+          "O tratamento de manchas começa pela avaliação da pele e do histórico, para identificar a causa, como exposição ao sol, melasma ou marcas antigas.",
+          "O cuidado costuma ser feito em etapas: controle da inflamação, quando existe, e depois o tratamento das manchas, com proteção e manutenção. Podem ser usados dermocosméticos e tecnologias específicas.",
         ],
         image: { base: "manchas", widths: [480, 800], w: 800, h: 450 },
         imageAlt: "Mulher com as mãos no rosto.",
@@ -222,8 +222,8 @@ export default {
         title: "Fios de PDO",
         short: "Fios posicionados conforme o planejamento médico.",
         text: [
-          "O posicionamento dos fios de PDO segue o planejamento feito na avaliação médica, considerando a anatomia do rosto.",
-          "A indicação depende da avaliação médica.",
+          "Os fios de PDO são posicionados de acordo com o planejamento da avaliação médica, seguindo os vetores naturais de sustentação do rosto.",
+          "Cada caso é analisado individualmente antes de qualquer indicação.",
         ],
         image: { base: "fios-pdo", widths: [480, 800], w: 800, h: 533 },
         imageAlt: "Aplicação de fio de PDO na região do queixo.",
@@ -233,8 +233,8 @@ export default {
         title: "Ultraformer MPT",
         short: "Equipamento de ultrassom micro e macrofocado.",
         text: [
-          "O Ultraformer MPT é um equipamento de ultrassom micro e macrofocado, usado sem cortes e sem cirurgia.",
-          "A indicação e o número de sessões dependem da avaliação médica.",
+          "O Ultraformer MPT é um equipamento de ultrassom micro e macrofocado, que atua em camadas mais profundas da pele, sem cortes e sem cirurgia.",
+          "As áreas tratadas e o número de sessões são definidos na avaliação.",
         ],
         image: { base: "ultraformer-mpt", widths: [480, 800], w: 800, h: 1200 },
         imageAlt: "Aplicação do Ultraformer MPT na região do maxilar.",
@@ -245,7 +245,7 @@ export default {
         short: "Equipamento de laser aplicado na pele.",
         text: [
           "O Lavieen é um equipamento de laser aplicado na pele.",
-          "A indicação, o número de sessões e os cuidados dependem da avaliação da pele e do histórico de cada pessoa.",
+          "Antes de indicar, a Dra. Lenita Brasil avalia a pele e o histórico de cada paciente. O número de sessões e os cuidados variam de caso para caso.",
         ],
         image: { base: "laser-lavieen", widths: [480, 800], w: 800, h: 1200 },
         imageAlt: "Mulher recebendo aplicação de laser no rosto.",
@@ -258,7 +258,7 @@ export default {
     title: "Como agendar",
     items: [
       { title: "Envie a mensagem", text: "Toque no botão e envie a mensagem pronta pelo WhatsApp." },
-      { title: "A equipe responde", text: "A equipe informa unidades, horários e valores." },
+      { title: "A equipe responde", text: "Você combina unidade, dia e horário, e recebe os valores." },
       { title: "Consulta ou exame", text: "Consulta: avaliação médica antes de qualquer indicação, com riscos e alternativas explicados. Exame: informe se tem pedido médico e pergunte sobre o preparo (como jejum)." },
     ],
   },
@@ -271,8 +271,8 @@ export default {
       { q: "Onde ficam as unidades?", a: "Em Belém (R. Bernal do Couto, nº 75, Umarizal) e em Castanhal (Av. Marechal Deodoro, nº 368, Ianetama), no Pará." },
       { q: "Como agendo uma consulta ou exame?", a: "Para consulta, pelo botão \"Agendar consulta\" desta página; para exames, pelos botões da seção Exames. Ambos abrem o WhatsApp com a mensagem pronta. É só enviar." },
       { q: "Qual o valor da consulta e dos exames?", a: "Os valores são informados pela equipe no atendimento pelo WhatsApp." },
-      { q: "Vocês atendem convênio?", a: "A equipe informa no atendimento pelo WhatsApp." },
-      { q: "Preciso de pedido médico para fazer exames?", a: "A equipe informa no atendimento pelo WhatsApp." },
+      { q: "Vocês atendem convênio?", a: "Pergunte à equipe pelo WhatsApp antes de agendar." },
+      { q: "Preciso de pedido médico para fazer exames?", a: "A equipe confirma esse ponto no momento do agendamento." },
       { q: "Preciso de jejum ou preparo?", a: "Depende do exame. A equipe informa o preparo ao agendar." },
       { q: "Como e quando recebo os resultados?", a: "A equipe informa o prazo e a forma de entrega ao agendar." },
       { q: "Posso fazer o procedimento na primeira consulta?", a: "Depende. A avaliação médica vem primeiro, e a Dra. Lenita Brasil define se há indicação no seu caso." },
@@ -282,7 +282,7 @@ export default {
 
   contact: {
     title: "Fale com a equipe pelo WhatsApp",
-    text: "Abra o WhatsApp com a mensagem pronta ou preencha o formulário.",
+    text: "Combine unidade, dia e horário e peça os valores pelo WhatsApp. Use o botão com a mensagem pronta ou preencha o formulário.",
     orWhats: "Ou entre em contato pelo WhatsApp",
     submit: "Enviar mensagem",
     msgHint: "Não escreva sintomas ou dados de saúde aqui; a equipe pergunta no atendimento.",
@@ -293,7 +293,7 @@ export default {
 
   footer: {
     tagline: "Consulta médica e exames em Belém e Castanhal",
-    text: "Agende pelo WhatsApp e informe a unidade de sua preferência.",
+    text: "Atendimento com agendamento pelo WhatsApp.",
     legal: [
       "Dra. Lenita Brasil, Médica, CRM-PA 10896.",
       "Este site tem caráter informativo e não substitui consulta médica. Não há garantia de resultados; cada caso é avaliado individualmente.",

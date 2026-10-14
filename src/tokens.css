@@ -21,52 +21,70 @@
   --color-olive: #424033;
   --color-white: #fff;
 
-  /* Papeis semanticos */
-  --color-bg: color-mix(in srgb, var(--color-beige) 38%, var(--color-white));   /* fundo claro da pagina */
-  --color-surface: var(--color-white);                                          /* caixas/cartoes        */
-  --color-surface-warm: color-mix(in srgb, var(--color-beige) 70%, var(--color-white));
-  --color-surface-rose: color-mix(in srgb, var(--color-peach) 20%, var(--color-beige)); /* secao "Dra." */
-  --color-ink: var(--color-olive);                                              /* texto principal       */
+  /* Tema CLARO (paleta do projeto original). Todos os tons de apoio sao derivados da paleta oficial
+     por color-mix; nenhuma cor nova, sem preto puro. */
+  --color-bg: color-mix(in srgb, var(--color-beige) 38%, var(--color-white));   /* fundo creme da pagina  */
+  --color-surface: var(--color-white);                                          /* cartoes/legenda        */
+  --color-surface-warm: color-mix(in srgb, var(--color-beige) 70%, var(--color-white)); /* faixa bege suave (marquee, rodape) */
+  --color-surface-rose: color-mix(in srgb, var(--color-peach) 20%, var(--color-beige)); /* faixa pessego suave    */
+  --color-surface-sand: var(--color-beige);                                     /* bege oficial: Laboratorios */
+  --color-ink: var(--color-olive);                                              /* texto principal        */
   --color-ink-soft: color-mix(in srgb, var(--color-olive) 82%, var(--color-white)); /* texto secundario (AA) */
   --color-line: color-mix(in srgb, var(--color-brown) 28%, var(--color-beige));
-  --color-brand: var(--color-brown);                                            /* titulos, botoes       */
-  --color-brand-strong: color-mix(in srgb, var(--color-brown) 80%, var(--color-olive));
-  --color-on-brand: var(--color-beige);                                         /* texto sobre marrom    */
-  --color-dark: var(--color-olive);                                             /* secoes escuras        */
+  --color-line-strong: color-mix(in srgb, var(--color-brown) 45%, var(--color-beige)); /* linhas finas de estrutura */
+  --color-brand: var(--color-brown);                                            /* destaque, botoes       */
+  --color-brand-strong: color-mix(in srgb, var(--color-brown) 80%, var(--color-olive)); /* texto pequeno sobre bege/pessego (AA) */
+  --color-on-brand: var(--color-beige);                                         /* texto sobre marrom     */
+  --color-dark: var(--color-olive);                                             /* botao escuro / overlay de legenda */
   --color-on-dark: var(--color-beige);
-  --color-accent: var(--color-peach);                                           /* detalhes sobre escuro */
+  --color-accent: var(--color-peach);                                           /* detalhe sobre superficie escura */
   --color-focus: var(--color-olive);
   --color-focus-on-dark: var(--color-peach);
 
   /* Tipografia (URL em content.mjs > site.fontsUrl) */
   --font-display: "Cormorant Garamond", "Runalto", Georgia, serif;  /* Runalto (oficial) > substituta */
   --font-body: "Nata Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --fs-xs: .8125rem;
-  --fs-sm: .9375rem;
-  --fs-md: 1.0625rem;
-  --fs-lg: clamp(1.25rem, 1.1rem + .6vw, 1.6rem);
-  --fs-xl: clamp(2rem, 1.5rem + 2.2vw, 3.1rem);
-  --fs-hero: clamp(2.25rem, 1.6rem + 3.6vw, 4.25rem);
-  --lh-tight: 1.12;
-  --lh-body: 1.7;
+  --fs-xs: .875rem;
+  --fs-sm: 1rem;
+  --fs-md: 1.125rem;   /* corpo: 18px */
+  --fs-lg: clamp(1.25rem, 1.15rem + .5vw, 1.5rem);
+  --fs-xl: clamp(1.5rem, 1.25rem + 1.1vw, 2.125rem);   /* titulos de item (linhas, cartoes) */
+  --fs-hero: clamp(2.6rem, 1.2rem + 3.9vw, 5.6rem);
+  --fs-3xl: clamp(2.2rem, 1.2rem + 3.4vw, 4.4rem);       /* titulos grandes de secao */
+  --fs-quote: clamp(1.8rem, 1rem + 2.7vw, 3.6rem);       /* afirmacao em destaque (A Doutora) */
+  --fs-label: .75rem;                                    /* rotulos em caixa-alta */
+  --ls-label: .22em;
+  --fs-2xl: clamp(2rem, 1.5rem + 1.8vw, 2.875rem);       /* titulos secundarios */
+  --fs-num: clamp(2rem, 1.6rem + 1.4vw, 2.75rem);        /* numerais (fonte display) */
+  --lh-tight: 1.05;
+  --lh-body: 1.65;
   --fw-light: 300;
   --fw-regular: 400;
+  --fw-medium: 500;
   --fw-strong: 600;
 
   /* Espacamento */
   --space-1: .25rem; --space-2: .5rem; --space-3: .75rem; --space-4: 1rem;
   --space-5: 1.5rem; --space-6: 2rem; --space-7: 3rem; --space-8: 4.5rem;
-  --space-9: clamp(3.5rem, 2.5rem + 5vw, 6.5rem);
+  --space-9: clamp(3.5rem, 2rem + 5vw, 7rem);      /* respiro vertical de secao */
   --gutter: clamp(1.25rem, 5vw, 2rem);
-  --container: 74rem;
-  --header-h: 4.5rem;
+  --container: 86rem;
+  --header-h: 5.5rem;   /* ~88px */
 
   /* Forma e sombra (caixas arredondadas, como no layout aprovado) */
-  --radius-sm: .5rem; --radius-md: 1rem; --radius-lg: 1.75rem; --radius-pill: 999px;
-  --shadow-sm: 0 1px 2px rgb(66 64 51 / .06), 0 2px 8px rgb(66 64 51 / .06);
-  --shadow-md: 0 14px 34px rgb(66 64 51 / .14);
+  --radius-sm: .125rem; --radius-btn: .25rem; --radius-pill: 999px; /* layout de referencia: quinas quase retas */
+  /* Recortes: arco (topo semicircular) e folha (cantos opostos) */
+  --shape-arch: 999px 999px 0 0;
+  --shape-leaf: 0 clamp(4rem, 14vw, 9rem) 0 clamp(4rem, 14vw, 9rem);
+  --mark-opacity: .16;                                                           /* simbolo como marca d'agua */
+  --measure: 38rem;                                                              /* largura de leitura (~65ch) */
+  --shadow-md: 0 10px 28px rgb(66 64 51 / .22); /* so no FAB */
+  --frame-offset: var(--space-4);                                                 /* deslocamento da moldura fina */
+  --marquee-dur: 38s;
 
   /* Movimento */
   --ease: cubic-bezier(.22, .8, .24, 1);
   --dur: .7s;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
 }

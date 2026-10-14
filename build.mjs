@@ -182,12 +182,15 @@ ${SHOW.faq ? `<script type="application/ld+json">${JSON.stringify(faqLd)}</scrip
 
 <section id="dra" class="section about" aria-labelledby="t-dra">
   <div class="container about__in">
+    <figure class="about__media reveal">${picture(c.about.image, c.about.imageAlt, { sizes: "(min-width:900px) 30rem, 80vw" })}</figure>
+    <div class="about__body">
     <h2 id="t-dra" class="about__label reveal">${label(c.ui.labels.dra)}</h2>
     <div class="about__copy">
       <p class="about__pull reveal">${emph(c.about.paragraphs[1], "a conversa")}</p>
       <p class="about__text reveal">${esc(c.about.paragraphs[0])}</p>
       <ul class="ficha reveal" aria-label="${esc(c.authority.title)}">${c.authority.items.map((i) => `<li><strong>${esc(i.value)}</strong><span>${esc(i.label)}</span></li>`).join("")}</ul>
       <div class="ctas reveal">${cta(c.about.cta, { msg: c.whatsapp.consulta.message, cls: "btn--alt", aria: `${c.about.cta} com a ${c.doctor.name} pelo WhatsApp` })}</div>
+    </div>
     </div>
   </div>
 </section>

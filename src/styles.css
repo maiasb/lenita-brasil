@@ -126,8 +126,11 @@ h2.label,.footer__h{margin:0}
 .section--rose{background:var(--color-surface-rose)}
 .section--sand{background:var(--color-surface-sand)}
 
-/* A Doutora: rotulo estreito + afirmacao grande, sem foto */
-.about__in{display:grid;gap:var(--space-5);align-items:start}
+/* A Doutora: retrato em moldura fina + rotulo, afirmacao grande, texto, ficha e CTA */
+.about__in{display:grid;gap:var(--space-6);align-items:center}
+.about__media{margin:0 0 var(--space-6);width:min(100%,26rem);justify-self:center}
+.about__media img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 12%;border-radius:var(--radius-sm)}
+.about__label{margin:0 0 var(--space-4)}
 .about__pull{font-family:var(--font-display);font-size:var(--fs-quote);line-height:1.12;font-weight:var(--fw-medium);letter-spacing:-.01em;color:var(--color-brand-strong);margin:0 0 var(--space-6)}
 .about__text{color:var(--color-ink-soft)}
 .ficha{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 var(--space-5);margin:var(--space-5) 0 var(--space-2);max-width:var(--measure)}
@@ -135,9 +138,10 @@ h2.label,.footer__h{margin:0}
 .ficha strong{display:block;font-family:var(--font-display);font-weight:var(--fw-medium);font-size:var(--fs-lg);line-height:1.2;color:var(--color-brand-strong)}
 .ficha span{display:block;font-size:var(--fs-sm);color:var(--color-ink-soft);line-height:1.5}
 @media(min-width:900px){
-  .about__in{grid-template-columns:minmax(0,1fr) minmax(0,3.2fr);gap:var(--space-8)}
-  .about__label{padding-top:var(--space-3)}
-  .ficha{grid-template-columns:repeat(4,minmax(0,1fr));max-width:none}
+  .about__in{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--space-8)}
+  .about__media{justify-self:start;width:min(100%,30rem);margin-bottom:0}
+  .about__label{margin-bottom:var(--space-5)}
+  .ficha{grid-template-columns:repeat(2,minmax(0,1fr));max-width:none}
 }
 
 /* Clinica: foto grande com cartao "02" no canto inferior direito + texto e 2 cartoes de unidade */

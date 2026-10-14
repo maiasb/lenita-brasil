@@ -98,8 +98,8 @@ export default {
       "No consultório, a conversa vem antes da indicação: ela ouve sua queixa, avalia seu histórico e explica as opções disponíveis.",
     ],
     cta: "Agendar consulta",
-    image: { base: "sobre", widths: [640, 1000], w: 1000, h: 856 },
-    imageAlt: "Dra. Lenita Brasil de blazer branco, braços cruzados, ao lado do símbolo da marca.",
+    image: { base: "dra", widths: [640, 1000], w: 1000, h: 1250 }, // DSC_0283 (fotos oficiais, estudio), recorte 4:5
+    imageAlt: "Dra. Lenita Brasil, de blazer branco, em pé, com as mãos à frente.",
   },
 
   clinic: {

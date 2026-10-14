@@ -14,10 +14,22 @@
     els.forEach((e, i) => { e.style.setProperty("--d", `${(i % 4) * 70}ms`); io.observe(e); });
   }
 
-  // Barra: ganha linha ao rolar
+  // Barra: ganha linha ao rolar; esconde ao descer e reaparece ao subir (sempre visivel no topo, com menu aberto ou com foco nela)
   const bar = document.getElementById("topbar");
-  const sync = () => bar.classList.toggle("is-stuck", scrollY > 8);
+  let lastY = scrollY;
+  const sync = () => {
+    const y = Math.max(scrollY, 0);
+    bar.classList.toggle("is-stuck", y > 8);
+    const dy = y - lastY;
+    if (Math.abs(dy) > 6) {
+      const hide = dy > 0 && y > bar.offsetHeight * 1.5 && !document.body.classList.contains("menu-open") && !bar.matches(":focus-within");
+      bar.classList.toggle("is-hidden", hide);
+      lastY = y;
+    }
+    if (y <= 8) bar.classList.remove("is-hidden");
+  };
   addEventListener("scroll", sync, { passive: true }); sync();
+  bar.addEventListener("focusin", () => bar.classList.remove("is-hidden"));
 
   // Faixa rolante: botao de pausa (WCAG 2.2.2); CSS ja pausa no hover/foco e para com reduced-motion
   const mqBtn = document.querySelector(".marquee__btn");

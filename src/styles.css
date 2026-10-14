@@ -47,8 +47,10 @@ h2.label,.footer__h{margin:0}
 .plain{display:inline-flex;align-items:center;gap:var(--space-2);min-height:44px;color:inherit;text-decoration:none}
 
 /* Barra superior (~88px): logo, links em caixa-alta (desktop), "Agendar", menu em tela cheia (<1100px) */
-.bar{position:sticky;top:0;z-index:70;background:color-mix(in srgb,var(--color-bg) 86%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
-.bar.is-stuck,.menu-open .bar{border-bottom-color:var(--color-line)}
+.bar{position:sticky;top:0;z-index:70;background:color-mix(in srgb,var(--color-bg) 86%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--color-line);transition:border-color .3s,transform .35s cubic-bezier(.2,.7,.2,1)}
+.bar.is-hidden{transform:translateY(-100%)}
+.menu-open .bar{transform:none}
+.bar.is-stuck,.menu-open .bar{border-bottom-color:var(--color-line-strong)}
 .menu-open .bar{background:var(--color-bg)}
 .bar__in{display:flex;align-items:center;justify-content:space-between;gap:var(--space-5);min-height:var(--header-h)}
 .brand{display:block;padding-block:var(--space-3)} /* area de protecao ao redor do logo */

@@ -16,7 +16,7 @@ export default {
     description:
       "Consulta com a Dra. Lenita Brasil e exames de laboratório em Belém e Castanhal (PA). Agende pelo WhatsApp e informe a unidade. CRM-PA 10896.",
     ogImage: "assets/img/og.jpg",
-    themeColor: "#292820" /* oliva escuro (tokens.css > --color-night) */,
+    themeColor: "#fdf5eb" /* creme (tokens.css > --color-bg: bege claro 38% + branco) */,
   },
 
   doctor: {
@@ -45,6 +45,15 @@ export default {
     },
   },
 
+  // Rotulos de secao e do menu (estrutura de navegacao; nao sao copy promocional)
+  ui: {
+    nav: { dra: "A Doutora", clinica: "Clínica", procedimentos: "Procedimentos", laboratorios: "Laboratórios", contato: "Contato" },
+    labels: { dra: "A Doutora", clinica: "A Clínica", procedimentos: "Procedimentos", laboratorios: "Laboratórios", contato: "Contato" },
+    proceduresBanner: "Toda indicação parte de avaliação médica.", // 1a frase de procedures.note, legenda do banner
+    examsButton: "Perguntar sobre exames",
+    navTitle: "Navegação", unitsTitle: "Unidades", socialTitle: "Redes e contato",
+  },
+
   // Ordem e rotulos conforme SITE2.pdf
   nav: [
     { href: "#dra", label: "Dra. Lenita Brasil" },
@@ -59,8 +68,11 @@ export default {
     title: "Consulta médica e exames de laboratório em Belém e Castanhal",
     text: "Agende sua consulta. A equipe responde pelo WhatsApp e informa unidades, horários e valores.",
     examsLink: "Procurando exames? Ver exames",
+    procLink: "Ver procedimentos", // botao secundario (contorno) do hero: ancora #procedimentos, nao e CTA de WhatsApp
     image: { base: "contato", widths: [600, 900], w: 900, h: 1350 },
     imageAlt: "Dra. Lenita Brasil sorrindo, com as mãos sob o queixo.",
+    wide: { base: "hero", widths: [960, 1920], w: 1920, h: 791 }, // banner largo sob a grade de procedimentos (foto da Dra.)
+    wideAlt: "Dra. Lenita Brasil de blusa cor de areia, com a mão sob o queixo, em ambiente claro.",
     eyebrow: "Clínica e laboratórios", // reaproveita os nomes das secoes Clinica/Laboratorios
     // Faixa rolante: so termos factuais ja presentes na copy (sem superlativos/promessas)
     marquee: ["Consulta médica", "Exames laboratoriais", "Belém", "Castanhal", "Avaliação médica", "Atendimento pelo WhatsApp", "CRM-PA 10896"],
@@ -97,8 +109,9 @@ export default {
       "A Clínica Lenita Brasil possui duas unidades: uma em Belém e outra em Castanhal.",
     ],
     cta: "Ver endereços",
-    image: { base: "hero", widths: [960, 1920], w: 1920, h: 791 }, // recorte da foto da Dra. (clinica-*.webp, estetoscopio desfocado, ficou sem uso)
-    imageAlt: "Dra. Lenita Brasil de blusa cor de areia, com a mão sob o queixo, em ambiente claro.",
+    image: { base: "unidade-belem", widths: [640, 1000], w: 1000, h: 875 }, // fachada (nao ha foto de interior; clinica-*.webp e estetoscopio, nao usar)
+    imageAlt: "Fachada da unidade de Belém, Lenita Brasil.",
+    count: { n: "02", label: "unidades em Belém e Castanhal" }, // cartao sobre a foto (fato ja presente em authority)
   },
 
   labs: {
@@ -271,7 +284,7 @@ export default {
     title: "Fale com a equipe pelo WhatsApp",
     text: "Abra o WhatsApp com a mensagem pronta ou preencha o formulário.",
     orWhats: "Ou entre em contato pelo WhatsApp",
-    submit: "Enviar",
+    submit: "Enviar mensagem",
     msgHint: "Não escreva sintomas ou dados de saúde aqui; a equipe pergunta no atendimento.",
     privacy:
       "Ao enviar, o site apenas monta uma mensagem e abre o WhatsApp com o que você preencheu; este site não guarda esses dados. Eles são usados somente para responder ao seu contato. O WhatsApp tem política de privacidade própria.",
@@ -295,7 +308,7 @@ export default {
     sections: [
       { h: "Como este site funciona", p: ["Este é um site informativo. Ele não tem cadastro, login nem banco de dados próprio, e não instala cookies de análise ou de publicidade."] },
       { h: "Formulário de contato", p: [
-        "O formulário não envia dados para um servidor deste site. Ao clicar em Enviar, o navegador monta uma mensagem de texto com o nome, o telefone e a mensagem que você preencheu e abre o WhatsApp para você enviá-la, se quiser.",
+        "O formulário não envia dados para um servidor deste site. Ao clicar em Enviar mensagem, o navegador monta uma mensagem de texto com o nome, o telefone e a mensagem que você preencheu e abre o WhatsApp para você enviá-la, se quiser.",
         "Essas informações são usadas somente para responder ao seu contato. Depois que a conversa é aberta no WhatsApp, o tratamento dos dados segue a política de privacidade do próprio WhatsApp.",
         "Não escreva sintomas ou dados de saúde no formulário; a equipe pergunta o necessário no atendimento.",
       ] },

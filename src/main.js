@@ -69,6 +69,15 @@
     }
   });
 
+  // Procedimentos: celula abre o painel (dialog nativo: foco preso e Esc); clique no fundo ou no X fecha
+  document.querySelectorAll("[data-dialog]").forEach((b) => {
+    const d = document.getElementById(b.dataset.dialog);
+    if (!d || typeof d.showModal !== "function") return;
+    b.addEventListener("click", () => d.showModal());
+    d.addEventListener("click", (e) => { if (e.target === d || e.target.closest("[data-close]")) { d.close(); b.focus(); } });
+    d.addEventListener("close", () => b.focus());
+  });
+
   // Formulario -> abre WhatsApp com a mensagem montada (sem backend; o site nao guarda os dados)
   const form = document.getElementById("form");
   const status = document.getElementById("form-status");

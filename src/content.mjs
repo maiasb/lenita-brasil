@@ -16,7 +16,7 @@ export default {
     description:
       "Consulta com a Dra. Lenita Brasil e exames de laboratório em Belém e Castanhal (PA). Agende pelo WhatsApp e informe a unidade. CRM-PA 10896.",
     ogImage: "assets/img/og.jpg",
-    themeColor: "#f9e4ca",
+    themeColor: "#292820" /* oliva escuro (tokens.css > --color-night) */,
   },
 
   doctor: {
@@ -38,6 +38,7 @@ export default {
     consulta: {
       label: "Agendar consulta",
       message: "Olá! Vim pelo site e gostaria de agendar uma consulta com a Dra. Lenita Brasil.",
+      shortLabel: "Agendar", // rotulo curto da barra superior (aria-label usa o rotulo completo)
     },
     exame: {
       message: "Olá! Vim pelo site e gostaria de informações para fazer exames no laboratório.",
@@ -51,6 +52,7 @@ export default {
     { href: "#procedimentos", label: "Procedimentos" },
     { href: "#laboratorios", label: "Laboratórios" },
     { href: "#exames", label: "Exames" },
+    { href: "#contato", label: "Contato" },
   ],
 
   hero: {
@@ -59,7 +61,11 @@ export default {
     examsLink: "Procurando exames? Ver exames",
     image: { base: "contato", widths: [600, 900], w: 900, h: 1350 },
     imageAlt: "Dra. Lenita Brasil sorrindo, com as mãos sob o queixo.",
-    badges: ["Consulta médica", "Exames laboratoriais", "Belém e Castanhal", "CRM-PA 10896"],
+    eyebrow: "Clínica e laboratórios", // reaproveita os nomes das secoes Clinica/Laboratorios
+    // Faixa rolante: so termos factuais ja presentes na copy (sem superlativos/promessas)
+    marquee: ["Consulta médica", "Exames laboratoriais", "Belém", "Castanhal", "Avaliação médica", "Atendimento pelo WhatsApp", "CRM-PA 10896"],
+    marqueeLabel: "Em resumo",
+    caption: { name: "Dra. Lenita Brasil", role: "CRM-PA 10896" },
   },
 
   // Fatos verificaveis (sem numeros inventados)

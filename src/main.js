@@ -14,15 +14,21 @@
     els.forEach((e, i) => { e.style.setProperty("--d", `${(i % 4) * 70}ms`); io.observe(e); });
   }
 
-  // Barra: ganha linha ao rolar e troca para a versao oliva (logo claro) enquanto estiver sobre uma secao escura
+  // Barra: ganha linha ao rolar
   const bar = document.getElementById("topbar");
-  const darkEls = [...document.querySelectorAll("[data-dark]")];
-  const sync = () => {
-    bar.classList.toggle("is-stuck", scrollY > 8);
-    const h = bar.offsetHeight, y = scrollY < h ? h + 1 : h / 2; // no topo, a secao logo abaixo da barra define o tom
-    bar.classList.toggle("bar--dark", darkEls.some((el) => { const r = el.getBoundingClientRect(); return r.top <= y && r.bottom >= y; }));
-  };
-  addEventListener("scroll", sync, { passive: true }); addEventListener("resize", sync); sync(); // leitura barata (poucos retangulos), sem layout forcado em cascata
+  const sync = () => bar.classList.toggle("is-stuck", scrollY > 8);
+  addEventListener("scroll", sync, { passive: true }); sync();
+
+  // Faixa rolante: botao de pausa (WCAG 2.2.2); CSS ja pausa no hover/foco e para com reduced-motion
+  const mqBtn = document.querySelector(".marquee__btn");
+  if (mqBtn) {
+    const mq = mqBtn.closest(".marquee");
+    mqBtn.addEventListener("click", () => {
+      const paused = mq.classList.toggle("is-paused");
+      mqBtn.setAttribute("aria-pressed", String(paused));
+      mqBtn.setAttribute("aria-label", paused ? mqBtn.dataset.off : mqBtn.dataset.on);
+    });
+  }
 
   // CTA fixo (FAB): esconde enquanto o CTA principal do hero, o contato ou o rodape estao a vista
   const fab = document.querySelector(".fab");

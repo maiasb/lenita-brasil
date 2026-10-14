@@ -21,24 +21,30 @@
   --color-olive: #424033;
   --color-white: #fff;
 
+  /* Tema escuro: oliva da marca como base. "Noite" e "pedra" sao tons de oliva escurecidos/aquecidos
+     por color-mix (nao sao cores novas); destaque = bege escuro (pessego). */
+  --color-night: color-mix(in srgb, var(--color-olive) 62%, black);            /* fundo da pagina (oliva escuro) */
+  --color-stone: var(--color-olive);                                            /* faixa alternada (oliva oficial) */
+  --color-clay: color-mix(in srgb, var(--color-olive) 82%, var(--color-brown)); /* faixa quente (Dra., contato)   */
+
   /* Papeis semanticos */
-  --color-bg: color-mix(in srgb, var(--color-beige) 38%, var(--color-white));   /* fundo claro da pagina */
-  --color-surface: var(--color-white);                                          /* caixas/cartoes        */
-  --color-surface-warm: var(--color-beige);                                       /* faixa bege (ritmo)    */
-  --color-surface-rose: color-mix(in srgb, var(--color-peach) 45%, var(--color-beige)); /* faixa pessego (Dra., contato) */
-  --color-ink: var(--color-olive);                                              /* texto principal       */
-  --color-ink-soft: color-mix(in srgb, var(--color-olive) 92%, var(--color-white)); /* texto secundario (AA forte) */
-  --color-on-dark-soft: color-mix(in srgb, var(--color-beige) 88%, var(--color-olive)); /* texto secundario sobre oliva */
-  --color-line: color-mix(in srgb, var(--color-brown) 28%, var(--color-beige));
-  --color-line-strong: color-mix(in srgb, var(--color-brown) 55%, var(--color-beige));   /* linhas finas de estrutura */
-  --color-line-on-dark: color-mix(in srgb, var(--color-peach) 38%, var(--color-olive));
-  --color-brand: var(--color-brown);                                            /* titulos, botoes       */
-  --color-brand-strong: color-mix(in srgb, var(--color-brown) 80%, var(--color-olive));
-  --color-on-brand: var(--color-beige);                                         /* texto sobre marrom    */
-  --color-dark: var(--color-olive);                                             /* secoes escuras        */
+  --color-bg: var(--color-night);
+  --color-surface: color-mix(in srgb, var(--color-olive) 78%, var(--color-night)); /* cartoes/legenda */
+  --color-surface-warm: var(--color-stone);
+  --color-surface-rose: var(--color-clay);
+  --color-ink: var(--color-beige);                                              /* texto principal       */
+  --color-ink-soft: color-mix(in srgb, var(--color-beige) 86%, var(--color-olive)); /* texto secundario */
   --color-on-dark: var(--color-beige);
-  --color-accent: var(--color-peach);                                           /* detalhes sobre escuro */
-  --color-focus: var(--color-olive);
+  --color-on-dark-soft: var(--color-ink-soft);
+  --color-line: color-mix(in srgb, var(--color-peach) 22%, var(--color-night));
+  --color-line-strong: color-mix(in srgb, var(--color-peach) 42%, var(--color-night)); /* linhas finas de estrutura */
+  --color-line-on-dark: var(--color-line-strong);
+  --color-brand: var(--color-peach);                                            /* titulos, links, botoes */
+  --color-brand-strong: var(--color-beige);
+  --color-on-brand: var(--color-olive);                                         /* texto sobre pessego   */
+  --color-dark: var(--color-stone);
+  --color-accent: var(--color-peach);
+  --color-focus: var(--color-peach);
   --color-focus-on-dark: var(--color-peach);
 
   /* Tipografia (URL em content.mjs > site.fontsUrl) */
@@ -74,8 +80,9 @@
   --shape-leaf: 0 clamp(4rem, 14vw, 9rem) 0 clamp(4rem, 14vw, 9rem);
   --mark-opacity: .16;                                                           /* simbolo como marca d'agua */
   --measure: 38rem;                                                              /* largura de leitura (~65ch) */
-  --shadow-sm: 0 1px 2px rgb(66 64 51 / .06), 0 2px 8px rgb(66 64 51 / .06);
-  --shadow-md: 0 14px 34px rgb(66 64 51 / .14);
+  --shadow-md: 0 10px 28px rgb(0 0 0 / .28);
+  --frame-offset: var(--space-4);                                                 /* deslocamento da moldura fina */
+  --marquee-dur: 38s;
 
   /* Movimento */
   --ease: cubic-bezier(.22, .8, .24, 1);
